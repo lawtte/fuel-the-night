@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lawtte Coffee — Fuel the Night</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE0;
+    --cream-dark: #EDE3CC;
+    --espresso: #1A0F05;
+    --espresso-mid: #2E1C0B;
+    --caramel: #C07830;
+    --caramel-light: #E09050;
+    --milk: #FAF6EE;
+    --smoke: #8A8070;
+    --gold: #D4A840;
+    --gold-light: #F0C860;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--espresso);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 5vw;
+    background: transparent;
+    transition: background 0.4s;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled {
+    background: rgba(26,15,5,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(192,120,48,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--caramel); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--caramel-light); }
+  .nav-cta {
+    background: var(--caramel);
+    color: var(--espresso) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    opacity: 1 !important;
+  }
+  .nav-cta:hover { background: var(--caramel-light); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 5vw;
+    position: relative;
+    overflow: hidden;
+    gap: 4rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(192,120,48,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-noise {
+    position: absolute; inset: 0; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--caramel);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--caramel-light);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    opacity: 0.7;
+    max-width: 430px;
+    margin-bottom: 3rem;
+  }
+  .hero-buttons { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--caramel);
+    color: var(--espresso);
+    padding: 1rem 2.2rem;
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--caramel-light); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--cream);
+    padding: 1rem 2.2rem;
+    border: 1px solid rgba(245,239,224,0.3);
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--caramel); color: var(--caramel-light); transform: translateY(-1px); }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .coffee-ring {
+    width: clamp(280px, 38vw, 520px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid rgba(192,120,48,0.25);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    animation: slowspin 30s linear infinite;
+  }
+  .coffee-ring::before {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(192,120,48,0.15);
+  }
+  .coffee-ring::after {
+    content: '';
+    position: absolute;
+    inset: 36px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(46,28,11,0.8) 60%, transparent 100%);
+    border: 1px solid rgba(192,120,48,0.1);
+  }
+  .coffee-cup-svg {
+    position: relative; z-index: 2;
+    animation: slowspin 30s linear infinite reverse;
+  }
+  @keyframes slowspin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .ring-badge {
+    position: absolute;
+    background: var(--espresso-mid);
+    border: 1px solid rgba(192,120,48,0.3);
+    border-radius: 100px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    animation: slowspin 30s linear infinite reverse;
+    white-space: nowrap;
+  }
+  .rb-1 { top: 8%; left: 50%; transform: translateX(-50%); }
+  .rb-2 { bottom: 12%; right: 5%; }
+  .rb-3 { bottom: 12%; left: 5%; }
+
+  /* floating orbit dots */
+  .orbit-dot {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: var(--caramel);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  /* ─── MARQUEE ─── */
+  .marquee-section {
+    border-top: 1px solid rgba(192,120,48,0.2);
+    border-bottom: 1px solid rgba(192,120,48,0.2);
+    padding: 1.2rem 0;
+    overflow: hidden;
+    background: rgba(192,120,48,0.05);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    white-space: nowrap;
+    animation: marquee 25s linear infinite;
+  }
+  .marquee-item {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+  .marquee-dot {
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: var(--caramel);
+    border-radius: 50%;
+    vertical-align: middle;
+    opacity: 0.4;
+    margin: 0 1rem;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ─── SERVICES ─── */
+  .section { padding: 7rem 5vw; }
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--caramel-light); }
+  .section-sub {
+    font-size: 1rem;
+    line-height: 1.9;
+    opacity: 0.6;
+    max-width: 520px;
+    margin-bottom: 4rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .service-card {
+    background: var(--espresso-mid);
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--caramel);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover { background: #3a2410; }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-time {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .service-time-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--caramel);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+  .service-desc {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    opacity: 0.6;
+    margin-bottom: 2rem;
+  }
+  .service-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(192,120,48,0.3);
+    border-radius: 1px;
+    color: var(--caramel);
+    opacity: 0.8;
+  }
+  .service-number {
+    position: absolute;
+    top: 2.5rem; right: 3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(192,120,48,0.07);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* ─── MENU ─── */
+  .menu-section { background: var(--espresso-mid); }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    margin-top: 2rem;
+  }
+  .menu-item {
+    background: var(--espresso);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: background 0.3s;
+  }
+  .menu-item:hover { background: #251508; }
+  .menu-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .menu-item-sub {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+  }
+  .menu-item-price {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--caramel);
+    font-weight: 500;
+  }
+  .menu-item-price span {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    font-weight: 300;
+    margin-left: 0.3rem;
+  }
+  .menu-divider {
+    width: 24px; height: 1px;
+    background: rgba(192,120,48,0.3);
+    margin: 0.5rem 0;
+  }
+  .menu-addon-section {
+    margin-top: 4rem;
+    padding: 2.5rem;
+    border: 1px solid rgba(192,120,48,0.15);
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+  .addon-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 0.5rem;
+  }
+  .addon-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .addons-list {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .addon-pill {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(192,120,48,0.2);
+  }
+  .addon-pill-name { font-size: 0.9rem; }
+  .addon-pill-price { color: var(--caramel); font-size: 0.85rem; }
+
+  /* ─── WHY US ─── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 4rem;
+  }
+  .why-item { position: relative; }
+  .why-icon {
+    width: 48px; height: 48px;
+    border: 1px solid rgba(192,120,48,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+  }
+  .why-item-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .why-item-desc { font-size: 0.9rem; line-height: 1.9; opacity: 0.55; }
+  .why-num {
+    position: absolute;
+    top: -1rem; right: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    opacity: 0.04;
+    line-height: 1;
+  }
+
+  /* ─── ORDER SECTION ─── */
+  .order-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 520px;
+  }
+  .order-left {
+    background: var(--caramel);
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .order-left .section-label { color: rgba(26,15,5,0.6); }
+  .order-left .section-title { color: var(--espresso); }
+  .order-left .section-title em { color: rgba(26,15,5,0.55); font-style: italic; }
+  .order-left p { color: var(--espresso); opacity: 0.7; line-height: 1.9; margin-bottom: 2.5rem; }
+  .btn-dark {
+    background: var(--espresso);
+    color: var(--cream);
+    padding: 1rem 2.2rem;
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.15s;
+    align-self: flex-start;
+  }
+  .btn-dark:hover { transform: translateY(-1px); }
+  .order-right {
+    background: var(--espresso-mid);
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .order-steps { display: flex; flex-direction: column; gap: 2rem; }
+  .order-step { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .step-num {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(192,120,48,0.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    color: var(--caramel);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .step-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .step-desc { font-size: 0.85rem; opacity: 0.5; line-height: 1.7; }
+
+  /* ─── DELIVERY AREA ─── */
+  .delivery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .area-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+  .area-item {
+    font-size: 0.85rem;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid rgba(192,120,48,0.15);
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .area-item::before {
+    content: '';
+    display: block;
+    width: 5px; height: 5px;
+    background: var(--caramel);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .delivery-info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .info-card {
+    background: var(--espresso-mid);
+    padding: 2rem;
+    border-left: 2px solid var(--caramel);
+  }
+  .info-card-title { font-weight: 500; margin-bottom: 0.5rem; }
+  .info-card-desc { font-size: 0.88rem; opacity: 0.55; line-height: 1.7; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 5rem 5vw 3rem;
+    border-top: 1px solid rgba(192,120,48,0.15);
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+  .footer-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .footer-brand-name span { color: var(--caramel); }
+  .footer-tagline { font-size: 0.85rem; opacity: 0.45; line-height: 1.8; max-width: 240px; }
+  .footer-col-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 1.5rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+  .footer-col ul li a {
+    font-size: 0.88rem;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .footer-col ul li a:hover { opacity: 1; color: var(--caramel-light); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(192,120,48,0.1);
+    font-size: 0.78rem;
+    opacity: 0.35;
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+    .hero-visual { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .order-section { grid-template-columns: 1fr; }
+    .delivery-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">lawt<span>tte</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#delivery">Delivery</a></li>
+    <li><a href="https://take.app/lawtte" class="nav-cta">Order Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Late-Night Coffee Delivery</div>
+    <h1 class="hero-title">
+      Fuel<br>
+      the <em>Night,</em><br>
+      Own the Day.
+    </h1>
+    <p class="hero-sub">
+      Premium espresso delivered to your door — for students, remote workers, and everyone who refuses to slow down. Zero-sugar options. No compromises.
+    </p>
+    <div class="hero-buttons">
+      <a href="https://wa.me/601234567890" class="btn-primary">Order via our Take App Website</a>
+      <a href="#menu" class="btn-ghost">View Menu</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="coffee-ring">
+      <span class="ring-badge rb-1">Est. 2026</span>
+      <span class="ring-badge rb-2">3 km radius</span>
+      <span class="ring-badge rb-3">8 PM – 12.30 AM</span>
+      <svg class="coffee-cup-svg" width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- cup body -->
+        <path d="M40 60 L52 130 L108 130 L120 60 Z" fill="rgba(46,28,11,0.9)" stroke="rgba(192,120,48,0.5)" stroke-width="1.5"/>
+        <!-- cup rim -->
+        <rect x="35" y="54" width="90" height="10" rx="2" fill="rgba(46,28,11,0.9)" stroke="rgba(192,120,48,0.5)" stroke-width="1.5"/>
+        <!-- handle -->
+        <path d="M120 75 Q145 75 145 95 Q145 115 120 115" stroke="rgba(192,120,48,0.5)" stroke-width="2" fill="none"/>
+        <!-- coffee surface -->
+        <ellipse cx="80" cy="59" rx="40" ry="5" fill="rgba(192,120,48,0.3)"/>
+        <!-- steam 1 -->
+        <path d="M65 45 Q68 38 65 31 Q62 24 65 17" stroke="rgba(192,120,48,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- steam 2 -->
+        <path d="M80 40 Q83 33 80 26 Q77 19 80 12" stroke="rgba(192,120,48,0.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- steam 3 -->
+        <path d="M95 45 Q98 38 95 31 Q92 24 95 17" stroke="rgba(192,120,48,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <!-- repeated twice for seamless loop -->
+    <span class="marquee-item">Late-night delivery</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Zero-sugar options</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Fresh espresso</span><span class="marquee-dot"></span>
+    <span class="marquee-item">3 km delivery radius</span><span class="marquee-dot"></span>
+    <span class="marquee-item">30-min batch rounds</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Exam season ready</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Oatmilk available</span><span class="marquee-dot"></span>
+    <span class="marquee-item">WhatsApp ordering</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Late-night delivery</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Zero-sugar options</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Fresh espresso</span><span class="marquee-dot"></span>
+    <span class="marquee-item">3 km delivery radius</span><span class="marquee-dot"></span>
+    <span class="marquee-item">30-min batch rounds</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Exam season ready</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Oatmilk available</span><span class="marquee-dot"></span>
+    <span class="marquee-item">WhatsApp ordering</span><span class="marquee-dot"></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <p class="section-label reveal">What We Do</p>
+  <h2 class="section-title reveal reveal-delay-">Built for the<br><em>Night Crowd.</em></h2>
+  <p class="section-sub reveal reveal-delay-2">Mode of operation — designed to serve when other cafés have given up. No fluff. Just great coffee, exactly when you need it.</p>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-number"></div>
+      <div class="service-time">
+        <span class="service-time-dot"></span>
+        Sun–Thu: 8PM–11:30PM &nbsp;|&nbsp; Fri–Sat: 8PM–12:30AM
+      </div>
+      <h3 class="service-name">Late-Night<br>Delivery</h3>
+      <p class="service-desc">You study. We deliver. On-demand espresso dispatched to your door within your neighbourhood — no need to leave the desk.</p>
+      <div class="service-tags">
+        <span class="tag">Students</span>
+        <span class="tag">WFH Workers</span>
+        <span class="tag">Freelancers</span>
+        <span class="tag">Night Owls</span>
+      </div>
+    </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section menu-section" id="menu">
+  <p class="section-label reveal">The Menu</p>
+  <h2 class="section-title reveal reveal-delay-1">Minimal Menu,<br><em>Maximum Craft.</em></h2>
+  <p class="section-sub reveal reveal-delay-2">Every drink is dialled in. Hot or cold. Regular or zero-sugar. Your coffee, your way.</p>
+
+  <div class="menu-grid reveal reveal-delay-2">
+    <div class="menu-item">
+      <div class="menu-item-name">Americano</div>
+      <div class="menu-divider"></div>
+      <div class="menu-item-sub">Espresso + water. Pure. Sharp. Clean.</div>
+      <div class="menu-item-price">RM 6.50 <span>hot</span> &nbsp;/&nbsp; RM 7 <span>cold</span></div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-name">Latte</div>
+      <div class="menu-divider"></div>
+      <div class="menu-item-sub">Espresso + steamed milk. Smooth &amp; balanced.</div>
+      <div class="menu-item-price">RM 8.50 <span>hot</span> &nbsp;/&nbsp; RM 9 <span>cold</span></div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-name">Spanish Latte</div>
+      <div class="menu-divider"></div>
+      <div class="menu-item-sub">Espresso + condensed milk. Rich &amp; indulgent.</div>
+      <div class="menu-item-price">RM 9.50 <span>hot</span> &nbsp;/&nbsp; RM 10 <span>cold</span></div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-name">Matcha</div>
+      <div class="menu-divider"></div>
+      <div class="menu-item-sub">Premium ceremonial-grade. Earthy, creamy.</div>
+      <div class="menu-item-price">RM 11 <span>hot</span> &nbsp;/&nbsp; RM 12 <span>cold</span></div>
+    </div>
+  </div>
+
+  <div class="menu-addon-section reveal">
+    <div>
+      <div class="addon-label">Customise</div>
+      <div class="addon-title">Add-Ons</div>
+    </div>
+    <div class="addons-list">
+      <div class="addon-pill">
+        <div class="addon-pill-name">Extra Shot</div>
+        <div class="addon-pill-price">+ RM 2</div>
+      </div>
+      <div class="addon-pill">
+        <div class="addon-pill-name">0-Cal 0-Sugar Syrup</div>
+        <div class="addon-pill-price">+ RM 2</div>
+      </div>
+      <div class="addon-pill">
+        <div class="addon-pill-name">Oatside Milk</div>
+        <div class="addon-pill-price">+ RM 2</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section">
+  <p class="section-label reveal">Why lawtte</p>
+  <h2 class="section-title reveal reveal-delay-1">Coffee That<br><em>Gets It.</em></h2>
+  <div class="why-grid">
+    <div class="why-item reveal">
+      <div class="why-num">01</div>
+      <div class="why-icon">🌙</div>
+      <div class="why-item-title">We're Open When Others Aren't</div>
+      <p class="why-item-desc">No more sacrificing study hours to drive to a 24-hour place. We deliver to you so you don't have to leave.</p>
+    </div>
+    <div class="why-item reveal reveal-delay-1">
+      <div class="why-num">02</div>
+      <div class="why-icon">🍃</div>
+      <div class="why-item-title">Zero-Sugar, Zero Guilt</div>
+      <p class="why-item-desc">Late-night studying shouldn't wreck your diet. Our 0-calorie, 0-sugar syrup options let you stay sharp without compromise.</p>
+    </div>
+    <div class="why-item reveal reveal-delay-2">
+      <div class="why-num">03</div>
+      <div class="why-icon">⚡</div>
+      <div class="why-item-title">Ready in 3–5 Minutes</div>
+      <p class="why-item-desc">Every cup prepped fresh before delivery to ensure quality. Batch deliveries go out every 30 minutes. Fast, reliable, consistent.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<div class="order-section" id="order">
+  <div class="order-left">
+    <p class="section-label">Order Now</p>
+    <h2 class="section-title">Ready to<br><em>Order?</em></h2>
+    <p>Fuel your grind without the wait. > Browse our menu and order instantly via the link below. No back-and-forth—just pick your drink, pay, and we’ll start brewing for the next delivery run!</p>
+    <a href="https://take.app/lawtte" class="btn-dark">Order Here →</a>
+  </div>
+  <div class="order-right">
+    <div class="order-steps">
+      <div class="order-step reveal">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Send your final details on WhatsApp after the checkout</div>
+          <div class="step-desc">Make payment and your order, address, and any customisations (extra shot, oatmilk, etc.) will generate itself </div>
+        </div>
+      </div>
+      <div class="order-step reveal reveal-delay-1">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">We prepare</div>
+          <div class="step-desc">Your drink is freshly made in 3–5 minutes. Batch deliveries go out every 30 min.</div>
+        </div>
+      </div>
+      <div class="order-step reveal reveal-delay-2">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Delivered to your door</div>
+          <div class="step-desc">Pickup available too. Free delivery on orders above RM 15.</div>
+        </div>
+      </div>
+      <div class="order-step reveal reveal-delay-3">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELIVERY -->
+<section class="section" id="delivery">
+  <div class="delivery-grid">
+    <div>
+      <p class="section-label reveal">Coverage</p>
+      <h2 class="section-title reveal reveal-delay-1">We Cover<br><em>Your Area.</em></h2>
+      <p class="section-sub reveal reveal-delay-2" style="margin-bottom: 0.5rem;">Personal delivery available for orders above RM 15. Below RM 15, a small RM 2 delivery fee applies.</p>
+      <div class="area-list reveal reveal-delay-3">
+        <div class="area-item">Nusarhu</div>
+        <div class="area-item">UiTM Puncak Perdana</div>
+        <div class="area-item">Perdana Heights</div>
+        <div class="area-item">Sunway Alam Suria</div>
+        <div class="area-item">Villa Suria</div>
+        <div class="area-item">Casa Suria</div>
+      </div>
+    </div>
+    <div class="delivery-info-cards reveal reveal-delay-2">
+      <div class="info-card">
+        <div class="info-card-title">Free Delivery</div>
+        <div class="info-card-desc">Orders above RM 15 get free personal delivery to all covered areas.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">RM 2 Delivery Fee</div>
+        <div class="info-card-desc">Orders below RM 15 — a small RM 2 charge covers packaging and delivery.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">Batch Rounds Every 30 Min</div>
+        <div class="info-card-desc">Orders are consolidated and dispatched in efficient 30-minute rounds for freshness and speed.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">Exam Season Mode</div>
+        <div class="info-card-desc">Extended hours and increased frequency during finals season. Follow our socials for updates.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">law<span>tte</span></div>
+      <p class="footer-tagline">Premium espresso for the students and night workers who never stop. Nusarhu & surrounding areas.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Menu</div>
+      <ul>
+        <li><a href="#menu">Americano</a></li>
+        <li><a href="#menu">Latte</a></li>
+        <li><a href="#menu">Spanish Latte</a></li>
+        <li><a href="#menu">Matcha</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Services</div>
+      <ul>
+        <li><a href="#services">Late-Night Delivery</a></li>
+        <li><a href="#services">Morning Stall</a></li>
+        <li><a href="#delivery">Delivery Areas</a></li>
+        <li><a href="#order">Order Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Connect</div>
+      <ul>
+        <li><a href="https://wa.me/60197152504">WhatsApp</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">GrabFood</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 lawtte Coffee. All rights reserved.</span>
+    <span>Puncak Perdana, Shah Alam</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
+
+
