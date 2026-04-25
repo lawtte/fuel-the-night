@@ -9,8 +9,8 @@
   :root {
     --cream: #F5EFE0;
     --cream-dark: #EDE3CC;
-    --espresso: #1A0F05;
-    --espresso-mid: #2E1C0B;
+    --espresso: #241508;
+    --espresso-mid: #3a2212;
     --caramel: #C07830;
     --caramel-light: #E09050;
     --milk: #FAF6EE;
@@ -20,7 +20,6 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -41,7 +40,7 @@
     border-bottom: 1px solid transparent;
   }
   nav.scrolled {
-    background: rgba(26,15,5,0.95);
+    background: rgba(36,21,8,0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(192,120,48,0.2);
   }
@@ -89,7 +88,7 @@
   .hero::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(192,120,48,0.12) 0%, transparent 65%);
+    background: radial-gradient(ellipse at 70% 50%, rgba(192,120,48,0.1) 0%, transparent 65%);
     pointer-events: none;
   }
   .hero-noise {
@@ -97,6 +96,8 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     pointer-events: none;
   }
+
+  /* ── PLACEMENT 1: Hero eyebrow — brand personality primer ── */
   .hero-eyebrow {
     font-size: 0.75rem;
     letter-spacing: 0.25em;
@@ -114,6 +115,8 @@
     height: 1px;
     background: var(--caramel);
   }
+  /* The eyebrow now carries the tagline — first thing eyes land on */
+
   .hero-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(3rem, 6vw, 5.5rem);
@@ -131,7 +134,7 @@
     line-height: 1.8;
     opacity: 0.7;
     max-width: 430px;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
   }
   .hero-buttons { display: flex; gap: 1.2rem; flex-wrap: wrap; }
   .btn-primary {
@@ -196,7 +199,7 @@
     position: absolute;
     inset: 36px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(46,28,11,0.8) 60%, transparent 100%);
+    background: radial-gradient(circle, rgba(58,34,18,0.8) 60%, transparent 100%);
     border: 1px solid rgba(192,120,48,0.1);
   }
   .coffee-cup-svg {
@@ -224,13 +227,14 @@
   .rb-2 { bottom: 12%; right: 5%; }
   .rb-3 { bottom: 12%; left: 5%; }
 
-  /* floating orbit dots */
-  .orbit-dot {
+  /* ── PLACEMENT 2: Circular SVG text — subtle, discoverable ── */
+  .ring-text-svg {
     position: absolute;
-    width: 6px; height: 6px;
-    background: var(--caramel);
-    border-radius: 50%;
-    opacity: 0.6;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    z-index: 1;
+    pointer-events: none;
+    animation: slowspin 40s linear infinite;
   }
 
   /* ─── MARQUEE ─── */
@@ -239,21 +243,28 @@
     border-bottom: 1px solid rgba(192,120,48,0.2);
     padding: 1.2rem 0;
     overflow: hidden;
-    background: rgba(192,120,48,0.05);
+    background: rgba(192,120,48,0.06);
   }
   .marquee-track {
     display: flex;
     gap: 3rem;
     white-space: nowrap;
-    animation: marquee 25s linear infinite;
+    animation: marquee 28s linear infinite;
   }
+  /* ── PLACEMENT 3: Marquee — tagline embedded as a feature ── */
   .marquee-item {
     font-size: 0.72rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--caramel);
-    opacity: 0.7;
+    opacity: 0.8;
     flex-shrink: 0;
+  }
+  .marquee-item.marquee-truth {
+    color: var(--gold-light);
+    opacity: 1;
+    font-weight: 500;
+    font-size: 0.74rem;
   }
   .marquee-dot {
     display: inline-block;
@@ -269,7 +280,7 @@
     to { transform: translateX(-50%); }
   }
 
-  /* ─── SERVICES ─── */
+  /* ─── SECTIONS ─── */
   .section { padding: 7rem 5vw; }
   .section-label {
     font-size: 0.72rem;
@@ -289,11 +300,12 @@
   .section-sub {
     font-size: 1rem;
     line-height: 1.9;
-    opacity: 0.6;
+    opacity: 0.65;
     max-width: 520px;
     margin-bottom: 4rem;
   }
 
+  /* ─── SERVICES ─── */
   .services-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -316,7 +328,7 @@
     transform-origin: left;
     transition: transform 0.4s ease;
   }
-  .service-card:hover { background: #3a2410; }
+  .service-card:hover { background: #4a2e18; }
   .service-card:hover::after { transform: scaleX(1); }
   .service-time {
     font-size: 0.7rem;
@@ -333,6 +345,7 @@
     border-radius: 50%;
     background: var(--caramel);
     animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
   }
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
@@ -348,7 +361,7 @@
   .service-desc {
     font-size: 0.95rem;
     line-height: 1.9;
-    opacity: 0.6;
+    opacity: 0.65;
     margin-bottom: 2rem;
   }
   .service-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; }
@@ -357,10 +370,10 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 0.4rem 0.9rem;
-    border: 1px solid rgba(192,120,48,0.3);
+    border: 1px solid rgba(192,120,48,0.35);
     border-radius: 1px;
     color: var(--caramel);
-    opacity: 0.8;
+    opacity: 0.9;
   }
   .service-number {
     position: absolute;
@@ -392,7 +405,7 @@
     cursor: default;
     transition: background 0.3s;
   }
-  .menu-item:hover { background: #251508; }
+  .menu-item:hover { background: #2e1a0a; }
   .menu-item-name {
     font-family: 'Playfair Display', serif;
     font-size: 1.3rem;
@@ -400,7 +413,7 @@
   }
   .menu-item-sub {
     font-size: 0.8rem;
-    opacity: 0.5;
+    opacity: 0.55;
     letter-spacing: 0.05em;
   }
   .menu-item-price {
@@ -418,13 +431,13 @@
   }
   .menu-divider {
     width: 24px; height: 1px;
-    background: rgba(192,120,48,0.3);
+    background: rgba(192,120,48,0.35);
     margin: 0.5rem 0;
   }
   .menu-addon-section {
     margin-top: 4rem;
     padding: 2.5rem;
-    border: 1px solid rgba(192,120,48,0.15);
+    border: 1px solid rgba(192,120,48,0.18);
     display: flex;
     align-items: center;
     gap: 4rem;
@@ -452,10 +465,72 @@
     flex-direction: column;
     gap: 0.25rem;
     padding: 1rem 1.5rem;
-    border: 1px solid rgba(192,120,48,0.2);
+    border: 1px solid rgba(192,120,48,0.22);
   }
   .addon-pill-name { font-size: 0.9rem; }
   .addon-pill-price { color: var(--caramel); font-size: 0.85rem; }
+
+  /* ── PLACEMENT 4: Full-width editorial truth statement ── */
+  /* The SURPRISE — a cinematic pause in scrolling */
+  .truth-banner {
+    padding: 8rem 5vw;
+    text-align: center;
+    background: var(--espresso);
+    border-top: 1px solid rgba(192,120,48,0.12);
+    border-bottom: 1px solid rgba(192,120,48,0.12);
+    overflow: hidden;
+    position: relative;
+  }
+  .truth-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(192,120,48,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .truth-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    opacity: 0.7;
+  }
+  .truth-label::before,
+  .truth-label::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: var(--caramel);
+    opacity: 0.4;
+  }
+  .truth-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 9rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--cream);
+    position: relative;
+    z-index: 1;
+  }
+  .truth-headline em {
+    font-style: italic;
+    color: var(--caramel-light);
+    display: block;
+  }
+  .truth-sub {
+    margin-top: 2.5rem;
+    font-size: 0.88rem;
+    opacity: 0.4;
+    letter-spacing: 0.1em;
+    font-style: italic;
+  }
 
   /* ─── WHY US ─── */
   .why-grid {
@@ -478,34 +553,34 @@
     font-weight: 700;
     margin-bottom: 0.75rem;
   }
-  .why-item-desc { font-size: 0.9rem; line-height: 1.9; opacity: 0.55; }
+  .why-item-desc { font-size: 0.9rem; line-height: 1.9; opacity: 0.6; }
   .why-num {
     position: absolute;
     top: -1rem; right: 0;
     font-family: 'Playfair Display', serif;
     font-size: 4rem;
     font-weight: 900;
-    opacity: 0.04;
+    color: rgba(192,120,48,0.06);
     line-height: 1;
+    pointer-events: none;
   }
 
-  /* ─── ORDER SECTION ─── */
+  /* ─── ORDER ─── */
   .order-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
-    min-height: 520px;
+    min-height: 70vh;
   }
   .order-left {
-    background: var(--caramel);
-    padding: 5rem;
+    background: var(--caramel-light);
+    padding: 7rem 5vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
   .order-left .section-label { color: rgba(26,15,5,0.6); }
-  .order-left .section-title { color: var(--espresso); }
-  .order-left .section-title em { color: rgba(26,15,5,0.55); font-style: italic; }
+  .order-left .section-title { color: var(--espresso); margin-bottom: 1.5rem; }
+  .order-left .section-title em { color: rgba(26,15,5,0.5); font-style: italic; }
   .order-left p { color: var(--espresso); opacity: 0.7; line-height: 1.9; margin-bottom: 2.5rem; }
   .btn-dark {
     background: var(--espresso);
@@ -525,6 +600,27 @@
     align-self: flex-start;
   }
   .btn-dark:hover { transform: translateY(-1px); }
+
+  /* ── PLACEMENT 5: Trust stamp — right at conversion moment ── */
+  .truth-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--espresso);
+    opacity: 0.38;
+    font-weight: 400;
+  }
+  .stamp-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
   .order-right {
     background: var(--espresso-mid);
     padding: 5rem;
@@ -545,14 +641,14 @@
     margin-top: 0.1rem;
   }
   .step-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.3rem; }
-  .step-desc { font-size: 0.85rem; opacity: 0.5; line-height: 1.7; }
+  .step-desc { font-size: 0.85rem; opacity: 0.55; line-height: 1.7; }
 
-  /* ─── DELIVERY AREA ─── */
+  /* ─── DELIVERY ─── */
   .delivery-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
-    align-items: center;
+    align-items: start;
   }
   .area-list {
     display: grid;
@@ -563,7 +659,7 @@
   .area-item {
     font-size: 0.85rem;
     padding: 0.9rem 1.1rem;
-    border: 1px solid rgba(192,120,48,0.15);
+    border: 1px solid rgba(192,120,48,0.18);
     letter-spacing: 0.03em;
     display: flex;
     align-items: center;
@@ -577,6 +673,12 @@
     border-radius: 50%;
     flex-shrink: 0;
   }
+  .outside-zone {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    opacity: 0.65;
+  }
   .delivery-info-cards {
     display: flex;
     flex-direction: column;
@@ -588,7 +690,7 @@
     border-left: 2px solid var(--caramel);
   }
   .info-card-title { font-weight: 500; margin-bottom: 0.5rem; }
-  .info-card-desc { font-size: 0.88rem; opacity: 0.55; line-height: 1.7; }
+  .info-card-desc { font-size: 0.88rem; opacity: 0.6; line-height: 1.7; }
 
   /* ─── FOOTER ─── */
   footer {
@@ -608,7 +710,18 @@
     margin-bottom: 1rem;
   }
   .footer-brand-name span { color: var(--caramel); }
-  .footer-tagline { font-size: 0.85rem; opacity: 0.45; line-height: 1.8; max-width: 240px; }
+
+  /* ── PLACEMENT 6: Footer tagline — the last impression ── */
+  .footer-tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    opacity: 0.55;
+    line-height: 1.5;
+    max-width: 240px;
+    color: var(--caramel-light);
+  }
+
   .footer-col-title {
     font-size: 0.7rem;
     letter-spacing: 0.2em;
@@ -647,6 +760,19 @@
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
 
+  /* Truth banner reveal */
+  .truth-headline {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .truth-headline.visible { opacity: 1; transform: translateY(0); }
+  .truth-label-reveal {
+    opacity: 0;
+    transition: opacity 0.8s ease 0.3s;
+  }
+  .truth-label-reveal.visible { opacity: 0.7; }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; padding-top: 7rem; }
@@ -654,9 +780,11 @@
     .services-grid { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr; }
     .order-section { grid-template-columns: 1fr; }
-    .delivery-grid { grid-template-columns: 1fr; }
+    .order-left, .order-right { padding: 3.5rem 5vw; }
+    .delivery-grid { grid-template-columns: 1fr; gap: 3rem; }
     .footer-top { grid-template-columns: 1fr 1fr; }
     .nav-links { display: none; }
+    .truth-headline { font-size: clamp(3rem, 10vw, 5rem); }
   }
 </style>
 </head>
@@ -664,7 +792,7 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-logo">lawt<span>tte</span></a>
+  <a href="#" class="nav-logo">law<span>tte</span></a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#menu">Menu</a></li>
@@ -678,7 +806,15 @@
 <section class="hero">
   <div class="hero-noise"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">Late-Night Coffee Delivery</div>
+
+    <!--
+      ★ PLACEMENT 1 ★
+      HERO EYEBROW — The tagline is the very first thing a visitor reads.
+      Psychologically: before they know what you sell, they know WHO you are.
+      It primes every claim that follows to feel honest and trustworthy.
+    -->
+    <div class="hero-eyebrow">No Lies, Just Good Beans</div>
+
     <h1 class="hero-title">
       Fuel<br>
       the <em>Night,</em><br>
@@ -688,7 +824,7 @@
       Premium espresso delivered to your door — for students, remote workers, and everyone who refuses to slow down. Zero-sugar options. No compromises.
     </p>
     <div class="hero-buttons">
-      <a href="https://wa.me/601234567890" class="btn-primary">Order via our Take App Website</a>
+      <a href="https://take.app/lawtte" class="btn-primary">Order via our Take App Website</a>
       <a href="#menu" class="btn-ghost">View Menu</a>
     </div>
   </div>
@@ -698,39 +834,55 @@
       <span class="ring-badge rb-1">Est. 2026</span>
       <span class="ring-badge rb-2">3 km radius</span>
       <span class="ring-badge rb-3">8 PM – 12.30 AM</span>
+
+      <!--
+        ★ PLACEMENT 2 ★
+        CIRCULAR RING TEXT — The tagline orbits the coffee cup as circular SVG type.
+        Subtle, poetic, discoverable. It rewards curiosity. Not everyone will notice it —
+        the ones who do will love it. That's exactly the kind of detail that gets shared.
+      -->
+      <svg class="ring-text-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <path id="circle-text-path" d="M 150,150 m -118,0 a 118,118 0 1,1 236,0 a 118,118 0 1,1 -236,0"/>
+        </defs>
+        <text font-size="9.5" fill="rgba(192,120,48,0.5)" font-family="DM Sans, sans-serif" letter-spacing="4.5" text-transform="uppercase">
+          <textPath href="#circle-text-path" startOffset="0%">NO LIES · JUST GOOD BEANS · NO LIES · JUST GOOD BEANS · </textPath>
+        </text>
+      </svg>
+
       <svg class="coffee-cup-svg" width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- cup body -->
-        <path d="M40 60 L52 130 L108 130 L120 60 Z" fill="rgba(46,28,11,0.9)" stroke="rgba(192,120,48,0.5)" stroke-width="1.5"/>
-        <!-- cup rim -->
-        <rect x="35" y="54" width="90" height="10" rx="2" fill="rgba(46,28,11,0.9)" stroke="rgba(192,120,48,0.5)" stroke-width="1.5"/>
-        <!-- handle -->
+        <path d="M40 60 L52 130 L108 130 L120 60 Z" fill="rgba(58,34,18,0.9)" stroke="rgba(192,120,48,0.5)" stroke-width="1.5"/>
+        <rect x="35" y="54" width="90" height="10" rx="2" fill="rgba(58,34,18,0.9)" stroke="rgba(192,120,48,0.5)" stroke-width="1.5"/>
         <path d="M120 75 Q145 75 145 95 Q145 115 120 115" stroke="rgba(192,120,48,0.5)" stroke-width="2" fill="none"/>
-        <!-- coffee surface -->
         <ellipse cx="80" cy="59" rx="40" ry="5" fill="rgba(192,120,48,0.3)"/>
-        <!-- steam 1 -->
         <path d="M65 45 Q68 38 65 31 Q62 24 65 17" stroke="rgba(192,120,48,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <!-- steam 2 -->
         <path d="M80 40 Q83 33 80 26 Q77 19 80 12" stroke="rgba(192,120,48,0.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <!-- steam 3 -->
         <path d="M95 45 Q98 38 95 31 Q92 24 95 17" stroke="rgba(192,120,48,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
       </svg>
     </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
+<!--
+  ★ PLACEMENT 3 ★
+  MARQUEE TICKER — The tagline is woven into the scrolling proof strip.
+  Every other item is a feature (zero-sugar, fast, fresh); placing the tagline
+  alongside them makes honesty feel like a product feature. Repetition is memory.
+-->
 <div class="marquee-section">
   <div class="marquee-track">
-    <!-- repeated twice for seamless loop -->
+    <span class="marquee-item marquee-truth">No Lies, Just Good Beans</span><span class="marquee-dot"></span>
     <span class="marquee-item">Late-night delivery</span><span class="marquee-dot"></span>
     <span class="marquee-item">Zero-sugar options</span><span class="marquee-dot"></span>
     <span class="marquee-item">Fresh espresso</span><span class="marquee-dot"></span>
     <span class="marquee-item">3 km delivery radius</span><span class="marquee-dot"></span>
     <span class="marquee-item">30-min batch rounds</span><span class="marquee-dot"></span>
+    <span class="marquee-item marquee-truth">No Lies, Just Good Beans</span><span class="marquee-dot"></span>
     <span class="marquee-item">Exam season ready</span><span class="marquee-dot"></span>
     <span class="marquee-item">Oatmilk available</span><span class="marquee-dot"></span>
     <span class="marquee-item">WhatsApp ordering</span><span class="marquee-dot"></span>
     <span class="marquee-item">Late-night delivery</span><span class="marquee-dot"></span>
+    <span class="marquee-item marquee-truth">No Lies, Just Good Beans</span><span class="marquee-dot"></span>
     <span class="marquee-item">Zero-sugar options</span><span class="marquee-dot"></span>
     <span class="marquee-item">Fresh espresso</span><span class="marquee-dot"></span>
     <span class="marquee-item">3 km delivery radius</span><span class="marquee-dot"></span>
@@ -744,17 +896,60 @@
 <!-- SERVICES -->
 <section class="section" id="services">
   <p class="section-label reveal">What We Do</p>
-  <h2 class="section-title reveal reveal-delay-">Built for the<br><em>Night Crowd.</em></h2>
+  <h2 class="section-title reveal reveal-delay-1">Built for the<br><em>Night Crowd.</em></h2>
   <p class="section-sub reveal reveal-delay-2">Mode of operation — designed to serve when other cafés have given up. No fluff. Just great coffee, exactly when you need it.</p>
 
   <div class="services-grid">
     <div class="service-card reveal">
-      <div class="service-number"></div>
+      <div class="service-number">01</div>
       <div class="service-time">
         <span class="service-time-dot"></span>
         Sun–Thu: 8PM–11:30PM &nbsp;|&nbsp; Fri–Sat: 8PM–12:30AM
       </div>
       <h3 class="service-name">Late-Night<br>Delivery</h3>
+      <p class="service-desc">When the library's closing and your deadline isn't, we're still open. Hot espresso to your block while everyone else sleeps.</p>
+      <div class="service-tags">
+        <span class="tag">UiTM Students</span>
+        <span class="tag">Remote Workers</span>
+        <span class="tag">Exam Season</span>
+      </div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-number">02</div>
+      <div class="service-time">
+        <span class="service-time-dot"></span>
+        Ready in 3–5 min · Dispatched every 30 min
+      </div>
+      <h3 class="service-name">Zero-Sugar<br>Options</h3>
+      <p class="service-desc">Stay sharp without the crash. 0-cal, 0-sugar syrups that actually taste good. Add a shot, swap the milk. Your coffee, your rules.</p>
+      <div class="service-tags">
+        <span class="tag">Diet-Friendly</span>
+        <span class="tag">0-Cal Syrup</span>
+        <span class="tag">Oatmilk</span>
+      </div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-number">03</div>
+      <div class="service-time">
+        <span class="service-time-dot"></span>
+        Doorstep delivery · Free above RM 15
+      </div>
+      <h3 class="service-name">Doorstep<br>Delivery</h3>
+      <p class="service-desc">No parking, no detour, no excuses. We bring it to your door so you can stay in your zone. Personal delivery within your neighbourhood.</p>
+      <div class="service-tags">
+        <span class="tag">Students</span>
+        <span class="tag">WFH Workers</span>
+        <span class="tag">Freelancers</span>
+        <span class="tag">Night Owls</span>
+      </div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-number">04</div>
+      <div class="service-time">
+        <span class="service-time-dot"></span>
+        Order via Take App
+      </div>
+      <h3 class="service-name">Simple<br>Ordering</h3>
       <p class="service-desc">You study. We deliver. On-demand espresso dispatched to your door within your neighbourhood — no need to leave the desk.</p>
       <div class="service-tags">
         <span class="tag">Students</span>
@@ -763,15 +958,12 @@
         <span class="tag">Night Owls</span>
       </div>
     </div>
-      </div>
-      </div>
-    </div>
   </div>
 </section>
 
 <!-- MENU -->
 <section class="section menu-section" id="menu">
-  <p class="section-label reveal">The Menu</p>
+  <p class="section-label reveal">No Lies.</p>
   <h2 class="section-title reveal reveal-delay-1">Minimal Menu,<br><em>Maximum Craft.</em></h2>
   <p class="section-sub reveal reveal-delay-2">Every drink is dialled in. Hot or cold. Regular or zero-sugar. Your coffee, your way.</p>
 
@@ -824,6 +1016,23 @@
   </div>
 </section>
 
+<!--
+  ★ PLACEMENT 4 ★
+  THE BIG EDITORIAL PAUSE — This is the SURPRISE.
+  Between the menu and "Why Us", the scroll suddenly meets an enormous,
+  screen-filling statement. No product info. Just a declaration.
+  This is what luxury brands, editorial magazines, and cult companies do.
+  It stops the scroll. It gets screenshotted. It's what visitors remember.
+-->
+<div class="truth-banner">
+  <p class="truth-label truth-label-reveal">Our Promise</p>
+  <h2 class="truth-headline reveal">
+    No Lies,<br>
+    <em>Just Good Beans.</em>
+  </h2>
+  <p class="truth-sub reveal reveal-delay-2">That's it. That's the whole mission.</p>
+</div>
+
 <!-- WHY US -->
 <section class="section">
   <p class="section-label reveal">Why lawtte</p>
@@ -855,16 +1064,28 @@
   <div class="order-left">
     <p class="section-label">Order Now</p>
     <h2 class="section-title">Ready to<br><em>Order?</em></h2>
-    <p>Fuel your grind without the wait. > Browse our menu and order instantly via the link below. No back-and-forth—just pick your drink, pay, and we’ll start brewing for the next delivery run!</p>
+    <p>Fuel your grind without the wait. Browse our menu and order instantly via the link below. No back-and-forth — just pick your drink, pay, and we'll start brewing for the next delivery run!</p>
     <a href="https://take.app/lawtte" class="btn-dark">Order Here →</a>
+
+    <!--
+      ★ PLACEMENT 5 ★
+      TRUST STAMP — Right below the CTA button, at the exact moment of conversion.
+      When a customer is deciding whether to commit, a quiet "No Lies, Just Good Beans"
+      dissolves the last 5% of hesitation. Small text, enormous psychological weight.
+    -->
+    <p class="truth-stamp">
+      <span class="stamp-dot"></span>
+      No Lies, Just Good Beans
+      <span class="stamp-dot"></span>
+    </p>
   </div>
   <div class="order-right">
     <div class="order-steps">
       <div class="order-step reveal">
         <div class="step-num">1</div>
         <div>
-          <div class="step-title">Send your final details on WhatsApp after the checkout</div>
-          <div class="step-desc">Make payment and your order, address, and any customisations (extra shot, oatmilk, etc.) will generate itself </div>
+          <div class="step-title">Order via Take App, then send your details on WhatsApp</div>
+          <div class="step-desc">Make payment and your order, address, and any customisations (extra shot, oatmilk, etc.) will generate itself.</div>
         </div>
       </div>
       <div class="order-step reveal reveal-delay-1">
@@ -879,9 +1100,6 @@
         <div>
           <div class="step-title">Delivered to your door</div>
           <div class="step-desc">Pickup available too. Free delivery on orders above RM 15.</div>
-        </div>
-      </div>
-      <div class="order-step reveal reveal-delay-3">
         </div>
       </div>
     </div>
@@ -903,6 +1121,7 @@
         <div class="area-item">Villa Suria</div>
         <div class="area-item">Casa Suria</div>
       </div>
+      <p class="outside-zone reveal reveal-delay-3">Outside the zone but need that caffeine fix? Slide into our WhatsApp DMs to request a Special Delivery. We'll calculate a fair fuel fee so you can get back to your hustle without leaving your desk.</p>
     </div>
     <div class="delivery-info-cards reveal reveal-delay-2">
       <div class="info-card">
@@ -930,14 +1149,20 @@
   <div class="footer-top">
     <div>
       <div class="footer-brand-name">law<span>tte</span></div>
-      <p class="footer-tagline">Premium espresso for the students and night workers who never stop. Nusarhu & surrounding areas.</p>
+      <!--
+        ★ PLACEMENT 6 ★
+        FOOTER TAGLINE — The very last thing eyes see before leaving the page.
+        Replaces the generic mission statement with the tagline in elegant italic serif.
+        It's not a slogan here — it's a goodbye. A feeling they carry with them.
+      -->
+      <p class="footer-tagline">No Lies,<br>Just Good Beans.</p>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">Menu</div>
       <ul>
         <li><a href="#menu">Americano</a></li>
-        <li><a href="#menu">Latte</a></li>
-        <li><a href="#menu">Spanish Latte</a></li>
+        <li><a href="#menu">Lawtte</a></li>
+        <li><a href="#menu">Spanish Lawtte</a></li>
         <li><a href="#menu">Matcha</a></li>
       </ul>
     </div>
@@ -945,7 +1170,6 @@
       <div class="footer-col-title">Services</div>
       <ul>
         <li><a href="#services">Late-Night Delivery</a></li>
-        <li><a href="#services">Morning Stall</a></li>
         <li><a href="#delivery">Delivery Areas</a></li>
         <li><a href="#order">Order Now</a></li>
       </ul>
@@ -961,20 +1185,18 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 lawtte Coffee. All rights reserved.</span>
+    <span>© 2026 lawtte. All rights reserved.</span>
     <span>Puncak Perdana, Shah Alam</span>
   </div>
 </footer>
 
 <script>
-  // Scroll nav
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
+  const reveals = document.querySelectorAll('.reveal, .truth-label-reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
