@@ -219,7 +219,7 @@
     animation: slowspin 40s linear infinite;
   }
 
-  /* ── HOURS CARD (new from Coffee Night) ── */
+  /* ── HOURS CARD ── */
   .hours-card {
     position: absolute; bottom: 5%; right: 2%;
     background: rgba(30,21,9,0.8);
@@ -301,7 +301,7 @@
     border-bottom: 0.5px solid var(--border);
     background: linear-gradient(180deg, rgba(192,120,48,0.03) 0%, transparent 100%);
   }
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
   .stat-card {
     text-align: center; padding: 2.8rem 1rem;
     border-right: 0.5px solid var(--border);
@@ -553,31 +553,6 @@
   .step-title { font-size: 0.92rem; font-weight: 500; margin-bottom: 0.3rem; }
   .step-desc { font-size: 0.82rem; color: var(--cream-muted); line-height: 1.7; }
 
-  /* ── URGENCY BANNER ── */
-  #urgency {
-    padding: 7rem 5%; position: relative; overflow: hidden;
-    text-align: center; background: linear-gradient(135deg, #0D0A08 0%, #1a1000 50%, #0D0A08 100%);
-    border-top: 0.5px solid var(--border);
-    border-bottom: 0.5px solid var(--border);
-  }
-  #urgency::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(192,120,48,0.09) 0%, transparent 70%);
-  }
-  .urgency-content { position: relative; z-index: 1; }
-  .urgency-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(192,120,48,0.1); border: 0.5px solid var(--border-warm);
-    color: var(--caramel); font-size: 0.7rem; font-weight: 600;
-    padding: 0.4rem 1rem; border-radius: 2px; letter-spacing: 0.15em;
-    text-transform: uppercase; margin-bottom: 2rem;
-  }
-  #urgency .section-title { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 1rem; }
-  .urgency-sub {
-    font-size: 0.95rem; color: var(--cream-muted); font-weight: 300;
-    margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto;
-  }
-
   /* ── DELIVERY ── */
   #delivery { background: var(--bg-2); }
   .delivery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
@@ -687,9 +662,8 @@
   @media (max-width: 1024px) {
     .menu-grid { grid-template-columns: repeat(2, 1fr); }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .stat-card { border-right: none; border-bottom: 0.5px solid var(--border); }
+    .stat-card { border-right: none; border-bottom: none; }
     .stat-card:nth-child(odd) { border-right: 0.5px solid var(--border); }
-    .stat-card:nth-child(3), .stat-card:nth-child(4) { border-bottom: none; }
   }
   @media (max-width: 900px) {
     #hero { grid-template-columns: 1fr; padding-top: 7rem; }
@@ -721,7 +695,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">law<span>tte</span></a>
   <ul class="nav-links" id="navLinks">
@@ -736,11 +709,9 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-noise"></div>
   <div class="hero-content">
-    <!-- PLACEMENT 1: Hero eyebrow -->
     <div class="hero-eyebrow">No Lies, Just Good Beans</div>
     <h1 class="hero-title">
       Fuel<br>the <em>Night,</em><br>Own the Day.
@@ -763,7 +734,6 @@
       <span class="ring-badge rb-2">3 km radius</span>
       <span class="ring-badge rb-3">8 PM – 12.30 AM</span>
 
-      <!-- PLACEMENT 2: Circular SVG text -->
       <svg class="ring-text-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <path id="circle-text-path" d="M 150,150 m -118,0 a 118,118 0 1,1 236,0 a 118,118 0 1,1 -236,0"/>
@@ -784,7 +754,6 @@
       </svg>
     </div>
 
-    <!-- Hours glass card -->
     <div class="hours-card">
       <div class="hours-pulse"></div>
       <div class="hours-text">
@@ -795,7 +764,6 @@
   </div>
 </section>
 
-<!-- PLACEMENT 3: Marquee -->
 <div class="marquee-section">
   <div class="marquee-track">
     <span class="marquee-item marquee-truth">No Lies, Just Good Beans</span><span class="marquee-dot"></span>
@@ -820,29 +788,19 @@
   </div>
 </div>
 
-<!-- STATS -->
 <section id="stats">
   <div class="stats-grid">
     <div class="stat-card reveal">
-      <span class="stat-number" data-count="500">0+</span>
-      <span class="stat-label">Cups Poured</span>
-    </div>
-    <div class="stat-card reveal reveal-delay-1">
-      <span class="stat-number">✦</span>
-      <span class="stat-label">Loved by Hustlers</span>
-    </div>
-    <div class="stat-card reveal reveal-delay-2">
       <span class="stat-number">3km</span>
       <span class="stat-label">Fast Radius</span>
     </div>
-    <div class="stat-card reveal reveal-delay-3">
+    <div class="stat-card reveal reveal-delay-1">
       <span class="stat-number">30m</span>
       <span class="stat-label">Batch Rounds</span>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
 <section class="section" id="services">
   <p class="section-label reveal">What We Do</p>
   <h2 class="section-title reveal reveal-delay-1">Built for the<br><em>Night Crowd.</em></h2>
@@ -910,7 +868,6 @@
   </div>
 </section>
 
-<!-- MENU -->
 <section class="section" id="menu">
   <div class="menu-header">
     <div>
@@ -985,7 +942,6 @@
   </div>
 </section>
 
-<!-- PLACEMENT 4: Truth Banner -->
 <div class="truth-banner">
   <p class="truth-label truth-label-reveal">Our Promise</p>
   <h2 class="truth-headline">
@@ -995,7 +951,6 @@
   <p class="truth-sub reveal reveal-delay-2">That's it. That's the whole mission.</p>
 </div>
 
-<!-- WHY US -->
 <section class="section" id="why">
   <p class="section-label reveal">Why lawtte</p>
   <h2 class="section-title reveal reveal-delay-1">Coffee That<br><em>Gets It.</em></h2>
@@ -1022,27 +977,12 @@
   </div>
 </section>
 
-<!-- URGENCY BANNER -->
-<section id="urgency">
-  <div class="urgency-content reveal">
-    <div class="urgency-pill">⏰ Tonight Only</div>
-    <h2 class="section-title" style="text-align:center;font-size:clamp(2.5rem,5vw,4.5rem);">Open Until <em>12:30 AM.</em></h2>
-    <p class="urgency-sub">Limited batch slots every 30 minutes to ensure every cup reaches you at perfect temperature.</p>
-    <a href="https://take.app/lawtte" class="btn-primary" style="font-size:0.95rem;padding:1.1rem 2.5rem;">
-      <span>Reserve My Batch</span>
-      <span>→</span>
-    </a>
-  </div>
-</section>
-
-<!-- ORDER -->
 <div class="order-section" id="order">
   <div class="order-left">
     <p class="section-label">Order Now</p>
     <h2 class="section-title">Ready to<br><em>Order?</em></h2>
     <p>Fuel your grind without the wait. Browse our menu and order instantly via the link below. No back-and-forth — just pick your drink, pay, and we'll start brewing for the next delivery run!</p>
     <a href="https://take.app/lawtte" class="btn-dark">Order Here →</a>
-    <!-- PLACEMENT 5: Trust stamp -->
     <p class="truth-stamp">
       <span class="stamp-dot"></span>
       No Lies, Just Good Beans
@@ -1055,7 +995,7 @@
         <div class="step-num">1</div>
         <div>
           <div class="step-title">Order via Take App</div>
-          <div class="step-desc">Make payment — your order, address, and customisations (extra shot, oatmilk, etc.) will generate itself automatically.</div>
+          <div class="step-desc">Make payment — your order, address, and customisations (extra shot, oatmilk, etc.) will generate itself automatically and send it to us on Whatsapp.</div>
         </div>
       </div>
       <div class="order-step reveal reveal-delay-1">
@@ -1076,7 +1016,6 @@
   </div>
 </div>
 
-<!-- DELIVERY -->
 <section class="section" id="delivery">
   <div class="delivery-grid">
     <div>
@@ -1111,25 +1050,22 @@
       </div>
       <div class="info-card">
         <div class="info-card-title">Exam Season Mode</div>
-        <div class="info-card-desc">Extended hours and increased frequency during finals season. Follow our socials for updates.</div>
+        <div class="info-card-desc">Follow our socials for updates.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER CTA -->
 <section id="footer-cta">
   <div class="footer-cta-content reveal">
     <div class="footer-big-text">
       Your Next Productive Night<br><em>Starts Here.</em>
     </div>
     <a href="https://wa.me/60197152504" class="wa-btn">☕ Order via Take App</a>
-    <!-- PLACEMENT 6: Final tagline -->
     <span class="footer-tagline-stamp">No Lies, Just Good Beans.</span>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div>
@@ -1169,7 +1105,6 @@
   </div>
 </footer>
 
-<!-- MOBILE STICKY CTA -->
 <div class="mobile-cta">
   <a href="https://take.app/lawtte">☕ Order Now via Take App</a>
 </div>
