@@ -995,7 +995,7 @@
         <div class="step-num">1</div>
         <div>
           <div class="step-title">Order via Take App</div>
-          <div class="step-desc">Make payment — your order, address, and customisations (extra shot, oatmilk, etc.) will generate itself automatically and send it to us on Whatsapp.</div>
+          <div class="step-desc">Make payment — your order, address, and customisations (extra shot, oatmilk, etc.) will generate itself automatically.</div>
         </div>
       </div>
       <div class="order-step reveal reveal-delay-1">
@@ -1050,7 +1050,7 @@
       </div>
       <div class="info-card">
         <div class="info-card-title">Exam Season Mode</div>
-        <div class="info-card-desc">Follow our socials for updates.</div>
+        <div class="info-card-desc">Extended hours and increased frequency during finals season. Follow our socials for updates.</div>
       </div>
     </div>
   </div>
@@ -1118,7 +1118,8 @@
   function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
 
   // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal, .truth-label-reveal');
+  // FIXED: Added '.truth-headline' to the querySelector so the script successfully triggers it
+  const reveals = document.querySelectorAll('.reveal, .truth-label-reveal, .truth-headline');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.1 });
@@ -1155,5 +1156,3 @@
 </script>
 </body>
 </html>
-
-
