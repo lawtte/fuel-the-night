@@ -186,17 +186,24 @@
     opacity: 0; animation: fade-up 1s ease 1s forwards; z-index: 5;
   }
   .hours-pulse {
-    width: 9px; height: 9px; background: #4ade80;
+    width: 9px; height: 9px; background: #4ade80; /* Default green */
     border-radius: 50%; position: relative; flex-shrink: 0;
+    transition: background 0.5s ease;
   }
   .hours-pulse::before {
     content: ''; position: absolute; inset: -4px;
     background: rgba(74,222,128,0.3); border-radius: 50%;
     animation: pulse-ring 2s ease infinite;
+    transition: background 0.5s ease;
   }
+  
+  /* RED "CLOSED" STATUS MODIFIER */
+  .hours-pulse.closed { background: #ef4444; }
+  .hours-pulse.closed::before { background: rgba(239,68,68,0.3); }
+
   @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.9); opacity: 0; } }
   .hours-text { font-size: 0.76rem; color: var(--cream-muted); line-height: 1.4; }
-  .hours-text strong { color: var(--cream); font-weight: 600; display: block; font-size: 0.83rem; }
+  .hours-text strong { color: var(--cream); font-weight: 600; display: block; font-size: 0.83rem; transition: color 0.3s; }
 
   /* ── HERO VISUAL ── */
   .hero-visual {
@@ -667,7 +674,6 @@
     .mobile-cta { display: block; }
     #footer-cta { padding: 5rem 5%; }
     .footer-big-text { font-size: 2.2rem; }
-    /* REMOVED: .hours-card { display: none; } so mobile users can now see it */
   }
   @media (max-width: 600px) {
     .menu-grid { grid-template-columns: 1fr; }
@@ -715,9 +721,9 @@
     </div>
 
     <div class="hours-card">
-      <div class="hours-pulse"></div>
+      <div class="hours-pulse" id="status-pulse"></div>
       <div class="hours-text">
-        <strong>Open Tonight</strong>
+        <strong id="status-text">Checking Status...</strong>
         Sun–Thu: 8 PM – 11:30 PM<br>Fri–Sat: 8 PM – 12:30 AM
       </div>
     </div>
@@ -978,7 +984,7 @@
         <div class="step-num">1</div>
         <div>
           <div class="step-title">Order via Take App</div>
-          <div class="step-desc">Make payment — your order, address, and customisations (extra shot, oatmilk, etc.) will generate itself automatically at the end and send it to us on Whatsapp.</div>
+          <div class="step-desc">Make payment — your order, address, and customisations (extra shot, oatmilk, etc.) will generate itself automatically and send it to us on Whatsapp.</div>
         </div>
       </div>
       <div class="order-step reveal reveal-delay-1">
@@ -1007,12 +1013,7 @@
       <p class="section-sub reveal reveal-delay-2" style="margin-bottom:0.5rem;">Personal delivery available for orders above RM 15. Below RM 15, a small RM 2 delivery fee applies.</p>
 
       <div class="zone-list reveal reveal-delay-3">
-        <div class="zone-item"><div class="zone-dot"></div><span class="zone-name">Nusarhu</span><span class="zone-tag">Active</span></div>
         <div class="zone-item"><div class="zone-dot"></div><span class="zone-name">UiTM Puncak Perdana</span><span class="zone-tag">Active</span></div>
-        <div class="zone-item"><div class="zone-dot"></div><span class="zone-name">Perdana Heights</span><span class="zone-tag">Active</span></div>
-        <div class="zone-item"><div class="zone-dot"></div><span class="zone-name">Sunway Alam Suria</span><span class="zone-tag">Active</span></div>
-        <div class="zone-item"><div class="zone-dot"></div><span class="zone-name">Villa Suria</span><span class="zone-tag">Active</span></div>
-        <div class="zone-item"><div class="zone-dot"></div><span class="zone-name">Casa Suria</span><span class="zone-tag">Active</span></div>
       </div>
 
       <p class="outside-zone reveal reveal-delay-3">Outside the zone but need that caffeine fix? Slide into our WhatsApp DMs to request a Special Delivery. We'll calculate a fair fuel fee so you can get back to your hustle without leaving your desk.</p>
@@ -1135,8 +1136,52 @@
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); document.getElementById('navLinks').classList.remove('open'); }
     });
   });
+
+  // Real-time Status Indicator
+  function checkStoreStatus() {
+    const now = new Date();
+    const day = now.getDay(); // 0 (Sun) to 6 (Sat)
+    const hour = now.getHours();
+    const min = now.getMinutes();
+    const time = hour + (min / 60); // Convert current time to decimal (e.g., 20.5 = 8:30 PM)
+
+    let isOpen = false;
+
+    // Logic based on opening hours
+    if (day === 0) { 
+      // Sunday: Open from Sat night (12:00 AM - 12:30 AM), and Sun night (8:00 PM - 11:30 PM)
+      if (time < 0.5) isOpen = true; 
+      if (time >= 20 && time < 23.5) isOpen = true; 
+    } else if (day >= 1 && day <= 4) { 
+      // Mon to Thu: 8:00 PM - 11:30 PM
+      if (time >= 20 && time < 23.5) isOpen = true;
+    } else if (day === 5) { 
+      // Friday: 8:00 PM - 11:59 PM
+      if (time >= 20) isOpen = true; 
+    } else if (day === 6) { 
+      // Saturday: Open from Fri night (12:00 AM - 12:30 AM), and Sat night (8:00 PM - 11:59 PM)
+      if (time < 0.5) isOpen = true; 
+      if (time >= 20) isOpen = true; 
+    }
+
+    const pulseEl = document.getElementById('status-pulse');
+    const textEl = document.getElementById('status-text');
+
+    if (isOpen) {
+      pulseEl.classList.remove('closed');
+      textEl.textContent = 'Open Now';
+      textEl.style.color = 'var(--cream)';
+    } else {
+      pulseEl.classList.add('closed');
+      textEl.textContent = 'Closed Now';
+      textEl.style.color = '#ef4444'; // Changes text to red to match the dot
+    }
+  }
+
+  // Run the check immediately on load
+  checkStoreStatus();
+  // Check the status again every 1 minute (60,000 milliseconds)
+  setInterval(checkStoreStatus, 60000);
 </script>
 </body>
 </html>
-
-
