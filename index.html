@@ -563,10 +563,17 @@
     .pickup-vs-chain { display: flex; flex-direction: column; gap: 2px; background: var(--border-steel); }
     .vs-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; background: var(--bg-panel); padding: 1.5rem 1.8rem; transition: var(--transition-smooth); }
     .vs-row:hover { background: var(--bg-panel-hover); }
+    .vs-row > :first-child { text-align: right; }
+    .vs-row > :nth-child(2) { text-align: center; }
+    .vs-row > :last-child { text-align: left; }
     .vs-option { font-size: 0.95rem; line-height: 1.5; font-weight: 700; }
     .vs-option.winner { color: var(--copper); font-weight: 800; }
-    .vs-option.loser { color: var(--text-slate); opacity: 0.45; text-decoration: line-through; }
-    .vs-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-slate); opacity: 0.7; text-align: center; }
+    .vs-option.loser { color: var(--text-slate); opacity: 0.45; text-decoration: line-through; text-decoration-color: rgba(71,85,105,0.4); }
+    .vs-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-slate); opacity: 0.7; white-space: nowrap; }
+    .vs-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; background: var(--bg-steel-alt); padding: 0.9rem 1.8rem; border-bottom: 2px solid var(--border-steel-heavy); }
+    .vs-header-left { text-align: right; font-weight: 900; font-size: 0.85rem; color: var(--copper); letter-spacing: 0.05em; }
+    .vs-header-center { width: 60px; }
+    .vs-header-right { text-align: left; font-weight: 700; font-size: 0.85rem; color: var(--text-slate); opacity: 0.6; }
     .stall-info-card { padding: 2.5rem; border: 1px solid var(--border-steel-heavy); background: var(--bg-panel); border-radius: 4px; }
     .stall-info-label { color: var(--copper); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
     .stall-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem; }
@@ -771,8 +778,8 @@
   <!-- ── MARQUEE ── -->
   <div class="marquee-section">
     <div class="marquee-track">
-      <div class="marquee-item">Fuel the Grind <span>✦</span> Premium Espresso <span>✦</span> Late-Night Delivery <span>✦</span> Closer Than Others <span>✦</span> 5-Min Ready <span>✦</span></div>
-      <div class="marquee-item">Fuel the Grind <span>✦</span> Premium Espresso <span>✦</span> Late-Night Delivery <span>✦</span> Closer Than Others <span>✦</span> 5-Min Ready <span>✦</span></div>
+      <div class="marquee-item">Fuel the Grind <span>✦</span> Premium Espresso <span>✦</span> Late-Night Delivery <span>✦</span> Closer Than Others <span>✦</span> 5-Min Pickup <span>✦</span></div>
+      <div class="marquee-item">Fuel the Grind <span>✦</span> Premium Espresso <span>✦</span> Late-Night Delivery <span>✦</span> Closer Than Others <span>✦</span> 5-Min Pickup <span>✦</span></div>
     </div>
   </div>
 
@@ -927,7 +934,7 @@
       </div>
       <div class="order-panel" id="panel-pickup">
         <div class="order-step"><div class="step-num">1</div><div><div class="step-title">Head to our stall</div><div class="step-desc">We're right here in Puncak Perdana — much closer than any coffee chain nearby. No parking hassle, no long walk.</div></div></div>
-        <div class="order-step"><div class="step-num">2</div><div><div class="step-title">Order &amp; pay</div><div class="step-desc">Walk up and place your order directly or shows us your pre order. Ready in 3–5 minutes. No app needed, no waiting in a long queue.</div></div></div>
+        <div class="order-step"><div class="step-num">2</div><div><div class="step-title">Order &amp; pay</div><div class="step-desc">Walk up and place your order directly or show us your pre-order. Ready in 3–5 minutes. No app needed, no waiting in a long queue.</div></div></div>
         <div class="order-step"><div class="step-num">3</div><div><div class="step-title">Grab &amp; go</div><div class="step-desc">Your coffee is fresh and ready. Back at your desk faster than any alternative nearby.</div></div></div>
         <div class="pickup-location-card">
           <div class="pickup-location-label">Our Stall</div>
@@ -966,10 +973,10 @@
       <div class="pickup-grid">
         <div class="reveal">
           <div class="pickup-vs-chain">
-            <div class="vs-row" style="background:var(--bg-steel-alt); padding:0.9rem 1.8rem;">
-              <span style="font-weight:900; font-size:0.85rem;">lawtte Stall</span>
-              <span></span>
-              <span style="color:var(--text-slate); opacity:0.6; font-size:0.85rem; font-weight:700;">Nearby Chain</span>
+            <div class="vs-header">
+              <span class="vs-header-left">lawtte Stall</span>
+              <span class="vs-header-center"></span>
+              <span class="vs-header-right">Nearby Chain</span>
             </div>
             <div class="vs-row"><div class="vs-option winner">Right here in Puncak Perdana</div><div class="vs-label">Location</div><div class="vs-option loser">Extra drive required</div></div>
             <div class="vs-row"><div class="vs-option winner">Walk up, order, done</div><div class="vs-label">Queue</div><div class="vs-option loser">Long queue, crowded</div></div>
@@ -1037,7 +1044,7 @@
         <div class="footer-col-title">Connect</div>
         <ul>
           <li><a href="https://wa.me/60197152504">WhatsApp</a></li>
-          <li><a href="https://instagram.com/afnanryan_" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="#">Instagram</a></li>
           <li><a href="#">TikTok</a></li>
           <li><a href="#">GrabFood</a></li>
         </ul>
