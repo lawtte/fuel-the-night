@@ -320,7 +320,32 @@
     .info-divider{width:1px;height:32px;background:var(--border)}
 
     /* ───── ABOUT ───── */
-    .about{padding:7rem 0;background:var(--bg-dark)}
+    .about{
+      padding:7rem 0;
+      position:relative;
+      background:var(--bg-dark);
+      overflow:hidden;
+    }
+    .about::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background-image:url('owner-photo.jpg');
+      background-size:cover;
+      background-position:center 30%;
+      opacity:.08;
+      pointer-events:none;
+      z-index:0;
+    }
+    .about::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to bottom, var(--bg-dark) 0%, transparent 30%, transparent 70%, var(--bg-dark) 100%);
+      pointer-events:none;
+      z-index:0;
+    }
+    .about .container{position:relative;z-index:1}
     .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
     .about-card{
       background:var(--bg-mid);
@@ -603,14 +628,15 @@
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="container">
-      <p class="eyebrow">Why Lawtte</p>
+      <p class="eyebrow">About Lawtte</p>
       <div class="about-grid">
         <div>
-          <h2 class="section-title">A late-night coffee spot that actually stays open late.</h2>
-          <p class="section-sub" style="margin-bottom:2.5rem;margin-top:.75rem">
-            Most cafes in Section U10 close before you need them. Lawtte starts at 8PM — built for
-            the hours when assignments pile up, meetings cross time zones, and the night is still young.
-          </p>
+          <h2 class="section-title">We're your neighbours. We make your coffee.</h2>
+          <div class="about-manifesto" style="font-size:.95rem;color:var(--text-muted);line-height:1.75;margin-bottom:2rem;margin-top:.75rem;max-width:56ch">
+            <p style="margin-bottom:1rem">We are Lawtte. A student-led coffee setup in <strong style="color:var(--text)">Puncak Perdana</strong> built specifically for those who refuse to slow down. We don't believe in corporate gimmicks, overcomplicated menus, or overpriced drinks.</p>
+            <p style="margin-bottom:1rem">Whether you're a student pulling a 2 AM all-nighter or a remote worker locking into an early morning sprint, we serve premium espresso, high-grade matcha, and guilt-free 0-sugar options to keep you sharp without the crash.</p>
+            <p>No compromise, no fluff — just real fuel delivered straight to your block or ready at our stall in minutes.</p>
+          </div>
           <div class="about-card">
             <div class="about-card-icon">☕</div>
             <div class="about-card-title">No lies, just good beans</div>
