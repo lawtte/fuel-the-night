@@ -3,1123 +3,868 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lawtte — Fuel the Night</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Lawtte — Coffee for the night shift of life</title>
+  <meta name="description" content="Lawtte: late-night coffee for students & remote workers in Section U10. Pickup in 3 min or order via Grab, Shopee Food, FoodPanda.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-steel: #F4F6F9;
-      --bg-steel-alt: #E2E8F0;
-      --bg-panel: #FFFFFF;
-      --bg-panel-hover: #F8FAFC;
-      --carbon: #1A1A1D;
-      --copper: #D97706;
-      --copper-lt: #F59E0B;
-      --copper-glow: rgba(217, 119, 6, 0.12);
-      --copper-dim: rgba(217, 119, 6, 0.05);
-      --text-iron: #0F172A;
-      --text-slate: #475569;
-      --text-light: #F8FAFC;
-      --text-muted-light: #94A3B8;
-      --border-steel: rgba(148, 163, 184, 0.25);
-      --border-steel-heavy: rgba(148, 163, 184, 0.5);
-      --glass-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-      --transition-smooth: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+
+    :root{
+      --black:#0b0a09;
+      --near-black:#141210;
+      --dark:#1a1714;
+      --dark-2:#221f1b;
+      --mid:#3b352e;
+      --warm:#c4844a;
+      --warm-bright:#e8a15c;
+      --warm-glow:rgba(196,132,74,.18);
+      --cream:#e3d9cf;
+      --cream-muted:#a89e93;
+      --cream-dim:#7d756c;
+      --orange:#EC4E02;
+      --serif:'Syne',system-ui,sans-serif;
+      --sans:'Inter',system-ui,sans-serif;
     }
 
-    *, *:before, *:after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg-steel);
-      color: var(--text-iron);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
-      overflow-x: hidden;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+    body{
+      font-family:var(--sans);
+      background:var(--black);
+      color:var(--cream);
+      line-height:1.6;
+      overflow-x:hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 9999; opacity: 0.3;
+    .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      font-size:.68rem;
+      font-weight:500;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--orange);
+      border:1px solid rgba(236,78,2,.25);
+      padding:.35rem .85rem;
+      border-radius:100px;
+    }
+    .tag::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--orange)}
+
+    .eyebrow{
+      font-size:.7rem;
+      font-weight:500;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--cream-dim);
+      margin-bottom:.75rem;
     }
 
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg-steel); }
-    ::-webkit-scrollbar-thumb { background: var(--copper); border-radius: 4px; }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 1.3rem 5%;
-      display: flex; align-items: center; justify-content: space-between;
-      transition: var(--transition-smooth);
-    }
-    nav.scrolled {
-      background: rgba(244, 246, 249, 0.95);
-      backdrop-filter: blur(30px);
-      border-bottom: 1px solid var(--border-steel);
-      box-shadow: var(--glass-shadow);
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.7rem; font-weight: 700;
-      color: var(--text-iron); text-decoration: none;
-      letter-spacing: 0.04em;
-    }
-    .nav-logo span { color: var(--copper); }
-    .nav-links { display: flex; gap: 2.8rem; list-style: none; align-items: center; }
-    .nav-links a {
-      color: var(--text-slate); text-decoration: none;
-      font-size: 0.8rem; letter-spacing: 0.15em;
-      text-transform: uppercase; font-weight: 600;
-      transition: color 0.2s; position: relative;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -6px; left: 0;
-      width: 100%; height: 2px; background: var(--copper);
-      transform: scaleX(0); transition: transform 0.3s ease; transform-origin: right;
-    }
-    .nav-links a:hover { color: var(--copper); }
-    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-    .nav-cta {
-      background: var(--copper) !important; color: #FFFFFF !important;
-      padding: 0.7rem 1.8rem !important; border-radius: 2px !important;
-      font-weight: 700 !important; letter-spacing: 0.06em !important;
-      transition: var(--transition-smooth) !important;
-      box-shadow: 0 4px 15px var(--copper-glow);
-    }
-    .nav-cta:hover { background: var(--copper-lt) !important; transform: translateY(-2px); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
-    .hamburger span { width: 24px; height: 2px; background: var(--text-iron); display: block; transition: var(--transition-smooth); }
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-    /* ─────────────────────────────────────────────
-       HERO — complete rebuild for visual clarity
-    ───────────────────────────────────────────── */
-    #hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      align-items: center;
-      padding: 0 5%;
-      padding-top: 6rem;
-      position: relative;
-      overflow: hidden;
-      gap: 4rem;
+    .section-title{
+      font-family:var(--serif);
+      font-size:clamp(1.6rem,3vw,2.6rem);
+      font-weight:700;
+      letter-spacing:-.02em;
+      line-height:1.1;
+      margin-bottom:.5rem;
     }
 
-    #hero::before {
-      content: "";
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 55% 60% at 72% 48%, rgba(217,119,6,0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 30% 40% at 5% 80%, rgba(217,119,6,0.04) 0%, transparent 60%);
-      pointer-events: none;
+    .section-sub{
+      font-size:.9rem;
+      color:var(--cream-dim);
+      font-weight:400;
+      line-height:1.65;
+      max-width:48ch;
     }
 
-    .hero-content {
-      position: relative; z-index: 10;
-      display: flex; flex-direction: column;
-      align-items: flex-start;
-      gap: 0; /* no gap — we control spacing with margin on each block */
+    /* ───── NAV ───── */
+    nav{
+      position:fixed;
+      top:0;left:0;right:0;
+      z-index:200;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:1.1rem 2rem;
+      background:rgba(11,10,9,.85);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(255,255,255,.04);
     }
 
-    /* Block 1: eyebrow */
-    .hero-eyebrow {
-      font-size: 0.72rem; letter-spacing: 0.3em;
-      text-transform: uppercase; color: var(--copper);
-      font-weight: 700;
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 1.8rem;
-      opacity: 0; animation: fade-up 0.7s ease 0.2s forwards;
+    .nav-logo{
+      font-family:var(--serif);
+      font-size:1.15rem;
+      font-weight:700;
+      color:var(--cream);
+      text-decoration:none;
+      letter-spacing:-.02em;
     }
-    .hero-eyebrow::before {
-      content: ""; display: block; width: 36px; height: 2px; background: var(--copper);
+    .nav-logo span{color:var(--orange)}
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:2.25rem;
+      list-style:none;
+    }
+    .nav-links a{
+      font-size:.8rem;
+      color:var(--cream-muted);
+      text-decoration:none;
+      transition:color .2s;
+      letter-spacing:.02em;
+    }
+    .nav-links a:hover{color:var(--cream)}
+
+    .nav-cta{
+      padding:.5rem 1.25rem;
+      background:var(--orange);
+      color:#fff;
+      font-size:.78rem;
+      font-weight:600;
+      text-decoration:none;
+      border-radius:6px;
+      transition:background .2s,transform .15s;
+    }
+    .nav-cta:hover{background:#ff5a1a;transform:translateY(-1px)}
+
+    /* ───── HERO ───── */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:7rem 2rem 5rem;
+      position:relative;
+      overflow:hidden;
+      background:var(--black);
     }
 
-    /* Block 2: headline — the anchor of the page */
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.8rem, 7.5vw, 6.5rem);
-      font-weight: 900; line-height: 0.92;
-      letter-spacing: -0.03em;
-      color: var(--text-iron);
-      margin-bottom: 2.2rem;
-      opacity: 0; animation: fade-up 0.8s ease 0.35s forwards;
-    }
-    .hero-title em { font-style: italic; color: var(--copper); }
-
-    /* Block 3: sub — soft, readable */
-    .hero-sub {
-      font-size: 1.05rem; line-height: 1.85;
-      color: var(--text-slate);
-      max-width: 480px;
-      margin-bottom: 2.8rem;
-      opacity: 0; animation: fade-up 0.8s ease 0.5s forwards;
+    .hero-card{
+      width:100%;
+      max-width:1200px;
+      position:relative;
+      overflow:hidden;
+      border-radius:48px;
+      border:1px solid rgba(255,255,255,.06);
+      background:var(--near-black);
+      box-shadow:0 4px 60px rgba(0,0,0,.4);
+      min-height:600px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      transition:all .5s ease;
     }
 
-    /* Block 4: audience split — a clear "who is this for?" divider */
-    .audience-split {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--border-steel-heavy);
-      border: 1px solid var(--border-steel-heavy);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 2.8rem;
-      opacity: 0; animation: fade-up 0.8s ease 0.65s forwards;
+    /* Dithering canvas */
+    #dither-canvas{
+      position:absolute;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      opacity:.35;
+      mix-blend-mode:screen;
+      width:100%;
+      height:100%;
     }
-    .audience-lane {
-      background: var(--bg-panel);
-      padding: 1.2rem 1.4rem;
-      display: flex; flex-direction: column; gap: 0.4rem;
-      transition: background 0.25s;
-    }
-    .audience-lane:hover { background: #FDFAF6; }
-    .audience-lane-header {
-      display: flex; align-items: center; gap: 0.6rem;
-      font-size: 0.72rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.12em;
-    }
-    .audience-dot {
-      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-    }
-    .dot-delivery { background: #10B981; box-shadow: 0 0 7px rgba(16,185,129,0.5); }
-    .dot-pickup   { background: var(--copper); box-shadow: 0 0 7px rgba(217,119,6,0.5); }
-    .audience-lane-label { color: var(--text-iron); }
-    .audience-lane-who {
-      font-size: 0.82rem; color: var(--text-slate);
-      font-weight: 400; line-height: 1.4; padding-left: 1.3rem;
+    @media(prefers-color-scheme:light){
+      #dither-canvas{mix-blend-mode:multiply;opacity:.25}
     }
 
-    /* Block 5: CTAs — the action layer */
-    .hero-cta-group {
-      display: flex; flex-direction: column; gap: 1.2rem;
-      width: 100%;
-      opacity: 0; animation: fade-up 0.8s ease 0.8s forwards;
-    }
-    .hero-cta-row {
-      display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
-    }
-    .btn-primary {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      background: var(--copper); color: #FFFFFF;
-      padding: 1.05rem 2.4rem; border-radius: 2px; border: none;
-      font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
-      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      cursor: pointer; text-decoration: none;
-      transition: var(--transition-smooth);
-      box-shadow: 0 6px 20px rgba(217,119,6,0.25);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(217,119,6,0.3); background: var(--copper-lt); }
-    .btn-ghost {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      background: transparent; color: var(--text-iron);
-      padding: 1.05rem 1.8rem; border-radius: 2px;
-      border: 1px solid var(--border-steel-heavy);
-      font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
-      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      cursor: pointer; text-decoration: none; transition: var(--transition-smooth);
-    }
-    .btn-ghost:hover { border-color: var(--copper); color: var(--copper); background: var(--copper-dim); transform: translateY(-1px); }
-
-    /* Block 6: pro tip — subtle, anchored */
-    .hero-pro-tip {
-      display: flex; align-items: flex-start; gap: 0.9rem;
-      background: var(--bg-panel);
-      border: 1px solid var(--border-steel);
-      border-left: 3px solid var(--copper);
-      padding: 0.9rem 1.2rem;
-      border-radius: 2px;
-      max-width: 460px;
-    }
-    .pro-tip-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-    .pro-tip-text { font-size: 0.82rem; color: var(--text-slate); line-height: 1.5; }
-    .pro-tip-text strong { color: var(--copper); font-weight: 700; }
-
-    /* Block 7: status — anchored at bottom, clear at a glance */
-    .hero-status-bar {
-      display: flex; align-items: center; gap: 0;
-      background: var(--bg-panel);
-      border: 1px solid var(--border-steel);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: var(--glass-shadow);
-      opacity: 0; animation: fade-up 0.9s ease 1s forwards;
-      max-width: 460px;
-    }
-    .status-indicator {
-      padding: 0.9rem 1.1rem;
-      border-right: 1px solid var(--border-steel);
-      display: flex; align-items: center; gap: 0.6rem;
-      flex-shrink: 0;
-    }
-    .hours-pulse {
-      width: 9px; height: 9px; background: #10B981;
-      border-radius: 50%; position: relative; flex-shrink: 0;
-    }
-    .hours-pulse::before {
-      content: ""; position: absolute; inset: -5px;
-      background: rgba(16,185,129,0.35); border-radius: 50%;
-      animation: pulse-ring 2s ease infinite;
-    }
-    .hours-pulse.preorder { background: var(--copper); }
-    .hours-pulse.preorder::before { background: rgba(217,119,6,0.3); }
-    @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2.1); opacity: 0; } }
-    .status-label {
-      font-size: 0.78rem; font-weight: 700; color: var(--text-iron);
-    }
-    .status-hours {
-      padding: 0.9rem 1.2rem;
-      font-size: 0.75rem; color: var(--text-slate);
-      line-height: 1.5;
-    }
-    .status-hours span { display: block; }
-
-    /* ── HERO VISUAL ── */
-    .hero-visual {
-      display: flex; justify-content: center; align-items: center;
-      position: relative;
-      opacity: 0; animation: fade-up 1s ease 0.5s forwards;
-    }
-    .coffee-ring {
-      width: clamp(300px, 40vw, 520px); aspect-ratio: 1;
-      border-radius: 50%;
-      border: 1px solid var(--border-steel-heavy);
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-      animation: slowspin 40s linear infinite;
-    }
-    .coffee-ring::before {
-      content: ""; position: absolute; inset: 18px; border-radius: 50%;
-      border: 1px solid var(--border-steel);
-    }
-    .coffee-ring::after {
-      content: ""; position: absolute; inset: 36px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.5) 40%, transparent 100%);
-      border: 1px solid var(--border-steel);
-    }
-    .coffee-cup-svg {
-      position: relative; z-index: 2;
-      animation: slowspin 40s linear infinite reverse;
-      filter: drop-shadow(0 20px 40px rgba(15,23,42,0.1));
-    }
-    @keyframes slowspin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    .ring-badge {
-      position: absolute;
-      background: #FFFFFF; border: 1px solid var(--border-steel-heavy);
-      border-radius: 100px; padding: 0.5rem 1.3rem;
-      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--copper);
-      animation: slowspin 40s linear infinite reverse;
-      white-space: nowrap; z-index: 5; box-shadow: var(--glass-shadow);
-    }
-    .rb-1 { top: 6%; left: 50%; transform: translateX(-50%); }
-    .rb-2 { bottom: 10%; right: 3%; }
-    .rb-3 { bottom: 10%; left: 3%; }
-    .ring-text-svg {
-      position: absolute; width: 100%; height: 100%;
-      top: 0; left: 0; z-index: 1; pointer-events: none;
-      animation: slowspin 50s linear infinite;
+    .hero-content{
+      position:relative;
+      z-index:10;
+      padding:4rem 3rem;
+      max-width:860px;
+      margin:0 auto;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
     }
 
-    @keyframes fade-up {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      border-radius:100px;
+      border:1px solid rgba(236,78,2,.12);
+      background:rgba(236,78,2,.06);
+      padding:.45rem 1.1rem .45rem .5rem;
+      font-size:.78rem;
+      font-weight:500;
+      color:var(--orange);
+      backdrop-filter:blur(8px);
+      margin-bottom:2.5rem;
+    }
+    .hero-badge-dot{
+      position:relative;
+      width:10px;
+      height:10px;
+      flex-shrink:0;
+    }
+    .hero-badge-dot-inner{
+      position:absolute;
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      background:var(--orange);
+    }
+    .hero-badge-dot-ping{
+      position:absolute;
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      background:var(--orange);
+      animation:ping 2s ease-in-out infinite;
+    }
+    @keyframes ping{
+      0%,100%{opacity:.4;transform:scale(1)}
+      50%{opacity:0;transform:scale(2.5)}
     }
 
-    /* ── MARQUEE ── */
-    .marquee-section {
-      background: var(--bg-panel);
-      border-top: 1px solid var(--border-steel);
-      border-bottom: 1px solid var(--border-steel);
-      padding: 2rem 0; overflow: hidden; white-space: nowrap;
+    .hero-h1{
+      font-family:var(--serif);
+      font-size:clamp(2.8rem,6vw,5.5rem);
+      font-weight:700;
+      letter-spacing:-.03em;
+      line-height:1.05;
+      color:var(--cream);
+      margin-bottom:2rem;
     }
-    .marquee-track {
-      display: flex; animation: marquee-scroll 25s linear infinite;
-      gap: 4rem; width: fit-content; align-items: center;
-    }
-    .marquee-item {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem; font-weight: 700;
-      color: var(--text-slate); opacity: 0.5;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      display: flex; align-items: center; gap: 1.5rem;
-    }
-    .marquee-item span { color: var(--copper); font-size: 1.2rem; opacity: 0.8; }
-    @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-    /* ── SECTION SHARED ── */
-    .section { padding: 7rem 5%; position: relative; }
-    .section-label {
-      font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--copper); margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 1rem; font-weight: 700;
-    }
-    .section-label::before { content: ""; width: 36px; height: 1px; background: var(--copper); opacity: 0.6; }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
-      line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem;
-    }
-    .section-title em { font-style: italic; color: var(--copper); }
-    .section-sub { font-size: 1rem; line-height: 1.9; color: var(--text-slate); max-width: 560px; margin-bottom: 3.5rem; }
-
-    /* ── STATS ── */
-    #stats {
-      padding: 0;
-      border-bottom: 1px solid var(--border-steel);
-      background: linear-gradient(180deg, var(--bg-panel) 0%, transparent 100%);
-    }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-    .stat-card {
-      text-align: center; padding: 4rem 1.5rem;
-      border-right: 1px solid var(--border-steel);
-      transition: var(--transition-smooth); position: relative; overflow: hidden;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-    }
-    .stat-card:last-child { border-right: none; }
-    .stat-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(circle at center, var(--copper-dim) 0%, transparent 70%);
-      opacity: 0; transition: opacity 0.4s;
-    }
-    .stat-card:hover::before { opacity: 1; }
-    .stat-card:hover { background: var(--bg-panel); }
-    .stat-number {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 900;
-      color: var(--copper); line-height: 1; display: block; margin-bottom: 0.5rem;
-    }
-    .stat-label { font-size: 0.8rem; font-weight: 700; color: var(--text-iron); letter-spacing: 0.15em; text-transform: uppercase; }
-    .stat-sub { font-size: 0.75rem; color: var(--text-slate); margin-top: 0.5rem; letter-spacing: 0.06em; }
-
-    /* ── SERVICES ── */
-    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border-steel-heavy); }
-    .service-card {
-      background: var(--bg-panel); padding: 4rem;
-      position: relative; overflow: hidden; transition: var(--transition-smooth);
-      display: flex; flex-direction: column; align-items: flex-start; z-index: 1;
-    }
-    .service-card:hover { background: var(--bg-panel-hover); transform: translateY(-4px); box-shadow: var(--glass-shadow); z-index: 2; }
-    .service-card.pickup-card { background: #FAFAFA; }
-    .service-number {
-      position: absolute; top: -0.5rem; right: -0.5rem;
-      font-family: 'Playfair Display', serif; font-size: 10rem; font-weight: 900;
-      color: var(--text-iron); opacity: 0.04; line-height: 1; pointer-events: none;
-    }
-    .service-time {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--copper); margin-bottom: 2rem;
-      display: flex; align-items: center; gap: 0.8rem;
-    }
-    .service-time-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--copper); flex-shrink: 0;
-      animation: dot-pulse 2s ease-in-out infinite;
-      box-shadow: 0 0 10px var(--copper-lt);
-    }
-    @keyframes dot-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
-    .service-name { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 1.2rem; line-height: 1.1; }
-    .service-desc { font-size: 0.95rem; line-height: 1.9; color: var(--text-slate); margin-bottom: 2.5rem; }
-    .service-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-    .tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 1rem; border: 1px solid var(--border-steel-heavy); border-radius: 2px; color: var(--text-iron); background: var(--bg-steel); }
-    .time-saving-callout {
-      margin-top: 2rem; padding: 1.2rem 1.5rem;
-      background: var(--copper-dim); border-left: 3px solid var(--copper); border-radius: 2px;
-      font-size: 0.85rem; font-weight: 600; color: var(--copper); line-height: 1.7;
-      display: flex; align-items: flex-start; gap: 0.8rem;
+    .hero-h1 span{
+      color:rgba(227,217,207,.7);
+      display:block;
     }
 
-    /* ── MENU ── */
-    #menu { background: var(--bg-steel-alt); }
-    .menu-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem; }
-    .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-steel-heavy); }
-    .menu-card {
-      background: var(--bg-panel); padding: 2.5rem 2rem;
-      display: flex; flex-direction: column; gap: 0.8rem;
-      position: relative; overflow: hidden; transition: var(--transition-smooth);
+    .hero-p{
+      font-size:1.05rem;
+      color:var(--cream-muted);
+      line-height:1.7;
+      max-width:560px;
+      margin-bottom:2.5rem;
     }
-    .menu-card:hover { background: #FFFFFF; transform: translateY(-8px); box-shadow: var(--glass-shadow); z-index: 2; }
-    .menu-card-visual {
-      width: 100%; aspect-ratio: 1; border-radius: 4px;
-      position: relative; overflow: hidden; margin-bottom: 1rem;
-      border: 1px solid var(--border-steel);
-    }
-    .mv-americano { background-image: url('americano.jpg'); background-size: cover; background-position: center; }
-    .mv-latte { background: linear-gradient(135deg, #F1F5F9, #E2E8F0); display:flex; align-items:center; justify-content:center; }
-    .mv-spanish { background: linear-gradient(135deg, #F8FAFC, #F1F5F9); display:flex; align-items:center; justify-content:center; }
-    .mv-matcha { background: linear-gradient(135deg, #ECFDF5, #E2E8F0); display:flex; align-items:center; justify-content:center; }
-    .menu-badge {
-      position: absolute; top: 12px; right: 12px;
-      background: #FFFFFF; border: 1px solid var(--border-steel-heavy);
-      color: var(--text-iron); font-size: 0.65rem; font-weight: 800;
-      padding: 4px 12px; border-radius: 2px; letter-spacing: 0.1em; text-transform: uppercase;
-    }
-    .menu-item-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800; }
-    .menu-item-sub { font-size: 0.85rem; color: var(--text-slate); line-height: 1.6; flex-grow: 1; }
-    .menu-item-price { margin-top: auto; padding-top: 1.2rem; font-size: 1.2rem; color: var(--copper); font-weight: 700; border-top: 1px solid var(--border-steel); }
-    .menu-item-price span { font-size: 0.75rem; color: var(--text-slate); font-weight: 500; margin-left: 0.3rem; text-transform: uppercase; }
-    .menu-addon-section {
-      margin-top: 2rem; padding: 3rem;
-      border: 1px solid var(--border-steel); display: flex; align-items: center; gap: 4rem; flex-wrap: wrap;
-      background: var(--bg-panel);
-    }
-    .addon-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.5rem; }
-    .addon-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; }
-    .addons-list { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
-    .addon-pill { display: flex; flex-direction: column; gap: 0.4rem; padding: 1.2rem 1.8rem; border: 1px solid var(--border-steel-heavy); transition: var(--transition-smooth); border-radius: 4px; background: var(--bg-steel); }
-    .addon-pill:hover { border-color: var(--copper); background: var(--bg-panel); transform: translateY(-2px); }
-    .addon-pill-name { font-size: 0.9rem; font-weight: 700; }
-    .addon-pill-price { color: var(--copper); font-size: 0.85rem; font-weight: 700; }
 
-    /* ── TRUTH BANNER ── */
-    .truth-banner {
-      padding: 10rem 5%; text-align: center;
-      background: var(--carbon); overflow: hidden; position: relative;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    .hero-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:.75rem;
+      height:56px;
+      padding:0 2.75rem;
+      border-radius:100px;
+      background:var(--orange);
+      color:#fff;
+      font-size:.95rem;
+      font-weight:600;
+      text-decoration:none;
+      transition:all .3s ease;
+      border:none;
+      cursor:pointer;
     }
-    .truth-banner::before {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, var(--copper-glow) 0%, transparent 70%);
-      pointer-events: none;
+    .hero-btn:hover{
+      background:#ff5a1a;
+      transform:scale(1.05);
     }
-    .truth-promise-label {
-      font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--copper); margin-bottom: 2rem; font-weight: 700;
+    .hero-btn:active{transform:scale(.95)}
+    .hero-btn svg{
+      width:20px;
+      height:20px;
+      transition:transform .3s ease;
     }
-    .truth-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(4rem, 10vw, 10rem); font-weight: 900;
-      line-height: 0.9; letter-spacing: -0.04em; color: #FFFFFF;
-      position: relative; z-index: 1;
-      opacity: 0; transform: translateY(40px);
-      transition: opacity 1s ease, transform 1s ease;
+    .hero-btn:hover svg{transform:translateX(4px)}
+
+    .hero-btn-ring{
+      box-shadow:0 0 0 0 rgba(236,78,2,.2);
+      transition:box-shadow .3s ease,transform .3s ease;
     }
-    .truth-headline.visible { opacity: 1; transform: translateY(0); }
-    .truth-headline em { font-style: italic; color: var(--copper); display: block; }
-    .truth-sub { font-size: 1.1rem; color: var(--text-muted-light); margin-top: 1.5rem; }
+    .hero-btn-ring:hover{box-shadow:0 0 0 8px rgba(236,78,2,.2)}
 
-    /* ── WHY US ── */
-    #why { background: var(--bg-steel-alt); }
-    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-steel-heavy); margin-top: 4rem; }
-    .why-card { background: var(--bg-panel); padding: 4rem 2.5rem; position: relative; overflow: hidden; transition: var(--transition-smooth); display: flex; flex-direction: column; z-index: 1; }
-    .why-card:hover { background: var(--bg-panel-hover); transform: translateY(-5px); box-shadow: var(--glass-shadow); z-index: 2; }
-    .why-num { position: absolute; top: -1rem; right: -1rem; font-family: 'Playfair Display', serif; font-size: 8rem; font-weight: 900; color: var(--text-iron); opacity: 0.04; line-height: 1; pointer-events: none; }
-    .why-icon { width: 50px; height: 50px; border: 1px solid var(--border-steel-heavy); display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; font-size: 1.3rem; border-radius: 4px; transition: var(--transition-smooth); background: var(--bg-steel); }
-    .why-card:hover .why-icon { border-color: var(--copper); background: var(--copper-dim); }
-    .why-item-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 1rem; }
-    .why-item-desc { font-size: 0.9rem; line-height: 1.9; color: var(--text-slate); }
-
-    /* ── ORDER ── */
-    .order-mode-tabs { display: flex; margin-bottom: 3rem; border: 1px solid var(--border-steel-heavy); border-radius: 4px; width: fit-content; overflow: hidden; background: var(--bg-steel); }
-    .mode-tab { padding: 0.8rem 1.8rem; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: var(--transition-smooth); color: var(--text-slate); border: none; background: transparent; font-family: 'DM Sans', sans-serif; font-weight: 700; }
-    .mode-tab.active { background: var(--copper); color: #FFFFFF; }
-    .order-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; }
-    .order-left { background: var(--carbon); padding: 7rem 5%; display: flex; flex-direction: column; justify-content: center; }
-    .order-left .section-label { color: var(--copper-lt); }
-    .order-left .section-label::before { background: var(--copper-lt); opacity: 0.6; }
-    .order-left .section-title { color: #FFFFFF; }
-    .order-left .section-title em { color: var(--copper); }
-    .order-left p { color: var(--text-muted-light); line-height: 1.9; }
-    .btn-dark { display: inline-flex; align-items: center; gap: 10px; background: #FFFFFF; color: var(--carbon); padding: 1.1rem 2.4rem; border: none; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: var(--transition-smooth); }
-    .btn-dark:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
-    .order-right { background: var(--bg-panel); padding: 5rem; display: flex; flex-direction: column; justify-content: center; }
-    .order-panel { display: none; flex-direction: column; gap: 2.5rem; }
-    .order-panel.active { display: flex; }
-    .order-step { display: flex; gap: 1.8rem; align-items: flex-start; }
-    .step-num { width: 36px; height: 36px; border: 1px solid var(--border-steel-heavy); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; color: var(--text-iron); flex-shrink: 0; background: var(--bg-steel-alt); }
-    .step-title { font-size: 1rem; font-weight: 800; margin-bottom: 0.4rem; }
-    .step-desc { font-size: 0.85rem; color: var(--text-slate); line-height: 1.8; }
-    .pickup-location-card { margin-top: 1rem; padding: 2rem; border: 1px solid var(--border-steel-heavy); background: var(--bg-steel); border-radius: 4px; }
-    .pickup-location-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.8rem; }
-    .pickup-location-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; margin-bottom: 0.5rem; }
-    .pickup-location-addr { font-size: 0.85rem; color: var(--text-slate); line-height: 1.7; }
-
-    /* ── DELIVERY ── */
-    #delivery { background: var(--bg-steel-alt); }
-    .delivery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-    .zone-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; }
-    .zone-item { display: flex; align-items: center; gap: 1.2rem; padding: 1.3rem 0; border-bottom: 1px solid var(--border-steel); transition: padding-left 0.3s; }
-    .zone-item:first-child { border-top: 1px solid var(--border-steel); }
-    .zone-item:hover { padding-left: 0.8rem; }
-    .zone-dot { width: 8px; height: 8px; background: var(--copper); border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 12px var(--copper); }
-    .zone-name { font-size: 1rem; font-weight: 700; flex-grow: 1; }
-    .zone-tag { font-size: 0.7rem; font-weight: 800; border: 1px solid var(--border-steel-heavy); padding: 3px 10px; border-radius: 2px; background: #FFFFFF; }
-    .info-card { background: var(--bg-panel); padding: 2.5rem; border-left: 4px solid var(--copper); transition: var(--transition-smooth); margin-bottom: 2px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-    .info-card:hover { transform: translateX(5px); box-shadow: var(--glass-shadow); }
-    .info-card-title { font-weight: 800; margin-bottom: 0.8rem; font-size: 1.1rem; }
-    .info-card-desc { font-size: 0.9rem; color: var(--text-slate); line-height: 1.8; }
-
-    /* ── PICKUP SECTION ── */
-    .pickup-section { margin-top: 6rem; padding-top: 5rem; border-top: 1px solid var(--border-steel); }
-    .pickup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; margin-top: 3rem; }
-    .pickup-vs-chain { display: flex; flex-direction: column; gap: 2px; background: var(--border-steel); }
-    .vs-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; background: var(--bg-panel); padding: 1.5rem 1.8rem; transition: var(--transition-smooth); }
-    .vs-row:hover { background: var(--bg-panel-hover); }
-    .vs-row > :first-child { text-align: right; }
-    .vs-row > :nth-child(2) { text-align: center; }
-    .vs-row > :last-child { text-align: left; }
-    .vs-option { font-size: 0.95rem; line-height: 1.5; font-weight: 700; }
-    .vs-option.winner { color: var(--copper); font-weight: 800; }
-    .vs-option.loser { color: var(--text-slate); opacity: 0.45; text-decoration: line-through; text-decoration-color: rgba(71,85,105,0.4); }
-    .vs-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-slate); opacity: 0.7; white-space: nowrap; }
-    .vs-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; background: var(--bg-steel-alt); padding: 0.9rem 1.8rem; border-bottom: 2px solid var(--border-steel-heavy); }
-    .vs-header-left { text-align: right; font-weight: 900; font-size: 0.85rem; color: var(--copper); letter-spacing: 0.05em; }
-    .vs-header-center { width: 60px; }
-    .vs-header-right { text-align: left; font-weight: 700; font-size: 0.85rem; color: var(--text-slate); opacity: 0.6; }
-    .stall-info-card { padding: 2.5rem; border: 1px solid var(--border-steel-heavy); background: var(--bg-panel); border-radius: 4px; }
-    .stall-info-label { color: var(--copper); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
-    .stall-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem; }
-    .stall-address { font-size: 0.9rem; color: var(--text-slate); line-height: 1.7; margin-bottom: 1.5rem; }
-    .stall-hours-list { border-top: 1px solid var(--border-steel); padding-top: 1.2rem; display: flex; flex-direction: column; gap: 0.6rem; }
-    .stall-hours-row { display: flex; justify-content: space-between; font-size: 0.9rem; }
-    .stall-hours-day { color: var(--text-slate); font-weight: 600; }
-    .stall-cta-note { margin-top: 1.5rem; padding: 1.2rem; background: var(--bg-steel); border: 1px solid var(--border-steel-heavy); font-size: 0.85rem; font-weight: 600; color: var(--copper); line-height: 1.6; border-radius: 4px; }
-
-    /* ── FOOTER CTA ── */
-    #footer-cta {
-      padding: 10rem 5%; text-align: center;
-      background: var(--carbon); position: relative; overflow: hidden;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    /* ───── INFO STRIP ───── */
+    .info-strip{
+      padding:1.25rem 0;
+      border-top:1px solid rgba(255,255,255,.04);
+      border-bottom:1px solid rgba(255,255,255,.04);
+      background:var(--near-black);
     }
-    #footer-cta::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, var(--copper-dim) 0%, transparent 70%); }
-    .footer-big-text { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 6rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; color: #FFFFFF; margin-bottom: 3rem; position: relative; z-index: 1; }
-    .footer-big-text em { font-style: italic; color: var(--copper); }
-    .footer-cta-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; position: relative; z-index: 1; }
-    .wa-btn { background: var(--copper); color: #FFFFFF; padding: 1.3rem 3rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 2px; text-decoration: none; transition: var(--transition-smooth); box-shadow: 0 8px 25px var(--copper-glow); display: inline-flex; align-items: center; }
-    .wa-btn:hover { background: var(--copper-lt); transform: translateY(-4px); box-shadow: 0 15px 40px rgba(217,119,6,0.3); }
-    .wa-btn-ghost { background: transparent; color: #FFFFFF; padding: 1.3rem 3rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 2px; text-decoration: none; border: 1px solid rgba(255,255,255,0.3); transition: var(--transition-smooth); display: inline-flex; align-items: center; }
-    .wa-btn-ghost:hover { border-color: var(--copper); color: var(--copper); background: var(--copper-dim); transform: translateY(-2px); }
-    .footer-tagline-stamp { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: var(--text-muted-light); opacity: 0.6; position: relative; z-index: 1; }
-
-    /* ── SITE FOOTER ── */
-    footer { padding: 5rem 5% 3rem; border-top: 1px solid rgba(255,255,255,0.05); background: var(--carbon); }
-    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
-    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: #FFFFFF; }
-    .footer-brand-name span { color: var(--copper); }
-    .footer-brand-tagline { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; opacity: 0.8; line-height: 1.5; max-width: 240px; color: var(--text-muted-light); }
-    .footer-col-title { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.8rem; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
-    .footer-col ul li a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted-light); text-decoration: none; transition: color 0.2s; }
-    .footer-col ul li a:hover { color: var(--copper); }
-    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; font-weight: 500; color: var(--text-muted-light); opacity: 0.6; }
-
-    /* ── MOBILE STICKY CTA ── */
-    .mobile-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; padding: 0.9rem 1rem; background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border-top: 1px solid var(--border-steel); }
-    .mobile-cta a { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--copper); color: #FFFFFF; font-weight: 800; font-size: 0.9rem; padding: 1rem; border-radius: 3px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .menu-grid { grid-template-columns: repeat(2, 1fr); }
-      .why-grid { grid-template-columns: repeat(2, 1fr); }
-      .pickup-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .footer-top { grid-template-columns: 1fr 1fr; }
+    .info-strip-inner{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:3rem;
+      flex-wrap:wrap;
     }
-    @media (max-width: 900px) {
-      #hero { grid-template-columns: 1fr; padding-top: 7rem; }
-      .hero-visual { display: none; }
-      .audience-split { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .why-grid { grid-template-columns: 1fr; }
-      .order-section { grid-template-columns: 1fr; }
-      .order-left, .order-right { padding: 4rem 5%; }
-      .delivery-grid { grid-template-columns: 1fr; gap: 4rem; }
-      .nav-links { display: none; }
-      .nav-links.open {
-        display: flex; flex-direction: column; align-items: center;
-        position: absolute; top: 100%; left: 0; right: 0;
-        background: rgba(255,255,255,0.98); backdrop-filter: blur(30px);
-        padding: 2.5rem; gap: 2rem;
-        border-bottom: 1px solid var(--border-steel);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-      }
-      .hamburger { display: flex; }
-      .mobile-cta { display: block; }
+    .info-stat{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
     }
-    @media (max-width: 600px) {
-      .menu-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; }
-      .footer-cta-buttons { flex-direction: column; align-items: stretch; width: 100%; }
-      .wa-btn, .wa-btn-ghost { width: 100%; text-align: center; justify-content: center; }
-      .hero-cta-row { flex-direction: column; }
-      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+    .info-stat-num{
+      font-family:var(--serif);
+      font-size:1.4rem;
+      font-weight:700;
+      color:var(--orange);
+      letter-spacing:-.02em;
+    }
+    .info-stat-label{
+      font-size:.78rem;
+      color:var(--cream-dim);
+      line-height:1.3;
+    }
+    .info-divider{width:1px;height:32px;background:rgba(255,255,255,.06)}
+
+    /* ───── ABOUT ───── */
+    .about{padding:7rem 0;background:var(--near-black)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+    .about-card{
+      background:var(--dark);
+      border:1px solid rgba(255,255,255,.04);
+      border-radius:12px;
+      padding:2rem;
+      transition:border-color .3s,transform .3s;
+    }
+    .about-card:hover{border-color:rgba(236,78,2,.2);transform:translateY(-2px)}
+    .about-card-icon{
+      width:40px;height:40px;
+      border-radius:8px;
+      background:rgba(236,78,2,.12);
+      display:flex;align-items:center;justify-content:center;
+      margin-bottom:1.25rem;
+      font-size:1.1rem;
+    }
+    .about-card-title{
+      font-family:var(--serif);
+      font-size:1.1rem;font-weight:600;
+      color:var(--cream);margin-bottom:.5rem;
+      letter-spacing:-.01em;
+    }
+    .about-card-text{
+      font-size:.85rem;color:var(--cream-muted);line-height:1.7;
+    }
+    .about-features{display:flex;flex-direction:column;gap:1.25rem}
+    .about-feature{
+      display:flex;gap:1rem;align-items:flex-start;
+      padding:1.25rem 1.5rem;
+      background:var(--dark);
+      border:1px solid rgba(255,255,255,.04);
+      border-radius:10px;
+      transition:border-color .3s;
+    }
+    .about-feature:hover{border-color:rgba(236,78,2,.15)}
+    .about-feature-marker{
+      width:24px;height:24px;
+      border-radius:6px;
+      background:rgba(236,78,2,.12);
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+      font-size:.7rem;color:var(--orange);font-weight:600;
+    }
+    .about-feature-text{
+      font-size:.85rem;color:var(--cream-muted);line-height:1.65;
+    }
+    .about-feature-text strong{color:var(--cream);font-weight:500}
+
+    /* ───── MENU ───── */
+    .menu{padding:7rem 0;background:var(--black)}
+    .menu-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;gap:2rem;flex-wrap:wrap}
+    .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    .menu-card{
+      background:var(--dark);
+      border:1px solid rgba(255,255,255,.04);
+      border-radius:12px;
+      padding:1.5rem 1.75rem;
+      transition:border-color .3s,transform .2s;
+    }
+    .menu-card:hover{border-color:rgba(236,78,2,.2);transform:translateY(-2px)}
+    .menu-card-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.35rem}
+    .menu-card-name{
+      font-family:var(--serif);
+      font-size:1.1rem;font-weight:600;
+      color:var(--cream);
+      letter-spacing:-.01em;
+    }
+    .menu-card-prices{display:flex;gap:.75rem}
+    .menu-card-price{font-size:.85rem;color:var(--cream-dim);font-variant-numeric:tabular-nums}
+    .menu-card-price:first-child::after{content:'·';margin-left:.75rem;color:var(--mid)}
+    .menu-card-desc{font-size:.8rem;color:var(--cream-dim);line-height:1.6}
+    .menu-addons{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.04)}
+    .menu-addon{display:flex;justify-content:space-between;align-items:center;padding:.6rem .85rem;background:rgba(255,255,255,.02);border-radius:6px;font-size:.8rem}
+    .menu-addon-name{color:var(--cream-muted)}
+    .menu-addon-price{color:var(--orange);font-weight:500}
+    .menu-addon-tag{font-size:.6rem;font-weight:600;letter-spacing:.06em;color:var(--orange);background:rgba(236,78,2,.1);padding:.15rem .5rem;border-radius:100px;margin-left:.5rem}
+
+    /* ───── ORDER ───── */
+    .order{padding:7rem 0;background:var(--near-black)}
+    .order-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3rem}
+    .order-card{
+      display:flex;flex-direction:column;
+      padding:1.75rem 1.5rem 1.5rem;
+      background:var(--dark);
+      border:1px solid rgba(255,255,255,.04);
+      border-radius:12px;
+      text-decoration:none;
+      transition:border-color .3s,transform .2s;
+    }
+    .order-card:hover{border-color:rgba(236,78,2,.25);transform:translateY(-3px)}
+    .order-card-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;margin-bottom:1.1rem}
+    .oc-grab{background:rgba(0,200,117,.12);color:#00c875}
+    .oc-shopee{background:rgba(238,77,45,.12);color:#ee4d2d}
+    .oc-panda{background:rgba(213,43,30,.12);color:#d52b1e}
+    .oc-pickup{background:rgba(236,78,2,.12);color:var(--orange)}
+    .order-card-name{font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--cream);margin-bottom:.35rem}
+    .order-card-desc{font-size:.78rem;color:var(--cream-dim);line-height:1.5;flex:1}
+    .order-pickup-banner{
+      margin-top:1.5rem;
+      display:flex;align-items:center;gap:1rem;
+      padding:1.1rem 1.5rem;
+      background:rgba(236,78,2,.06);
+      border:1px solid rgba(236,78,2,.12);
+      border-radius:10px;
+    }
+    .order-pickup-icon{width:40px;height:40px;border-radius:8px;background:rgba(236,78,2,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+    .order-pickup-text strong{display:block;font-size:.9rem;font-weight:600;color:var(--cream);margin-bottom:.1rem}
+    .order-pickup-text span{font-size:.8rem;color:var(--cream-dim)}
+    .order-pickup-badge{background:var(--orange);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .65rem;border-radius:4px;margin-left:.5rem;letter-spacing:.02em;white-space:nowrap}
+
+    /* ───── HOURS ───── */
+    .hours{padding:7rem 0;background:var(--black)}
+    .hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:560px;margin-top:3rem}
+    .hours-card{padding:1.75rem 2rem;background:var(--dark);border:1px solid rgba(255,255,255,.04);border-radius:12px}
+    .hours-day{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:.6rem}
+    .hours-time{font-family:var(--serif);font-size:1.75rem;font-weight:700;color:var(--orange);line-height:1.1;letter-spacing:-.02em}
+    .hours-note{font-size:.78rem;color:var(--cream-dim);margin-top:.4rem}
+    .hours-footnote{margin-top:2rem;font-size:.82rem;color:var(--cream-dim);max-width:52ch;line-height:1.6}
+
+    /* ───── CTA ───── */
+    .cta{padding:7rem 0;background:linear-gradient(135deg,var(--orange),#d43d00);text-align:center}
+    .cta-tagline{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3.2rem);font-weight:800;color:#fff;line-height:1.15;letter-spacing:-.02em;margin-bottom:.6rem}
+    .cta-tagline em{font-style:italic}
+    .cta-sub{font-size:1rem;color:rgba(255,255,255,.7);margin-bottom:2rem;font-weight:400}
+    .btn-dark{padding:.85rem 2.25rem;background:var(--black);color:var(--orange);font-size:.85rem;font-weight:600;text-decoration:none;border-radius:6px;transition:background .2s,transform .15s;display:inline-block}
+    .btn-dark:hover{background:var(--near-black);transform:translateY(-2px)}
+
+    /* ───── FOOTER ───── */
+    footer{padding:2.5rem 0;background:var(--near-black);border-top:1px solid rgba(255,255,255,.04)}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+    .footer-brand{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--cream);letter-spacing:-.01em}
+    .footer-brand span{color:var(--orange)}
+    .footer-tagline{font-size:.7rem;color:var(--cream-dim);margin-top:.15rem}
+    .footer-info{font-size:.78rem;color:var(--cream-dim);line-height:1.6;text-align:center}
+    .footer-hours{font-size:.78rem;color:var(--cream-dim);line-height:1.6;text-align:right}
+    .footer-hours strong{color:var(--cream);font-weight:500}
+
+    /* ───── ANIMATIONS ───── */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.d1{transition-delay:.08s}
+    .reveal.d2{transition-delay:.16s}
+    .reveal.d3{transition-delay:.24s}
+    .reveal.d4{transition-delay:.32s}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    .hero-fade{animation:fadeUp .7s both}
+    .hero-fade.d1{animation-delay:.1s}
+    .hero-fade.d2{animation-delay:.2s}
+    .hero-fade.d3{animation-delay:.3s}
+    .hero-fade.d4{animation-delay:.4s}
+
+    /* ───── RESPONSIVE ───── */
+    @media(max-width:1024px){
+      .about-grid{grid-template-columns:1fr;gap:2.5rem}
+      .order-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:768px){
+      nav{padding:.9rem 1.25rem}
+      .nav-links{display:none}
+      .hero{padding:5rem 1rem 3rem}
+      .hero-card{border-radius:24px;min-height:500px}
+      .hero-content{padding:2.5rem 1.5rem}
+      .container{padding:0 1.25rem}
+      section{padding:5rem 0}
+      .info-strip-inner{gap:1.5rem}
+      .info-divider:nth-child(4){display:none}
+      .menu-grid{grid-template-columns:1fr}
+      .menu-addons{grid-template-columns:1fr}
+      .order-grid{grid-template-columns:1fr 1fr}
+      .hours-grid{grid-template-columns:1fr;max-width:380px}
+      .footer-inner{flex-direction:column;text-align:center}
+      .footer-hours{text-align:center}
+      .order-pickup-banner{flex-direction:column;text-align:center}
+    }
+    @media(max-width:480px){
+      .order-grid{grid-template-columns:1fr 1fr}
+      .hero-h1{font-size:clamp(2rem,8vw,2.6rem)}
+      .hero-card{border-radius:16px;min-height:450px}
+      .hero-btn{height:50px;padding:0 2rem;font-size:.85rem}
     }
   </style>
 </head>
 <body>
 
-  <nav id="nav">
-    <a href="#" class="nav-logo">law<span>tte</span></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#services">Services</a></li>
+  <!-- NAV -->
+  <nav>
+    <a href="#home" class="nav-logo">Lawtte<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
       <li><a href="#menu">Menu</a></li>
       <li><a href="#order">Order</a></li>
-      <li><a href="#delivery">Delivery</a></li>
-      <li><a href="#pickup">Pickup</a></li>
-      <li><a href="https://take.app/lawtte" class="nav-cta">Order Now</a></li>
+      <li><a href="#hours">Hours</a></li>
     </ul>
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
+    <a href="#order" class="nav-cta">Order</a>
   </nav>
 
-  <!-- ══════════════════════════════════════════
-       HERO — Structured into 7 clear visual blocks
-  ══════════════════════════════════════════ -->
-  <section id="hero">
-    <div class="hero-content">
-
-      <!-- Block 1: eyebrow -->
-      <div class="hero-eyebrow">No Lies, Just Good Beans</div>
-
-      <!-- Block 2: headline -->
-      <h1 class="hero-title">
-        Fuel<br>the <em>Grind,</em><br>Own the Day.
-      </h1>
-
-      <!-- Block 3: subtitle -->
-      <p class="hero-sub">
-        Premium espresso — delivered to your door at night, or ready to grab from our stall in minutes. Built for students who can't stop and remote workers who won't detour.
-      </p>
-
-      <!-- Block 4: audience split — two clear paths -->
-      <div class="audience-split">
-        <div class="audience-lane">
-          <div class="audience-lane-header">
-            <span class="audience-dot dot-delivery"></span>
-            <span class="audience-lane-label">Delivery</span>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-card" id="heroCard">
+      <canvas id="dither-canvas"></canvas>
+      <div class="hero-content">
+        <div class="hero-badge hero-fade">
+          <div class="hero-badge-dot">
+            <div class="hero-badge-dot-ping"></div>
+            <div class="hero-badge-dot-inner"></div>
           </div>
-          <div class="audience-lane-who">Students · Night Owls · Freelancers</div>
+          Section U10 — Open 8PM nightly
         </div>
-        <div class="audience-lane">
-          <div class="audience-lane-header">
-            <span class="audience-dot dot-pickup"></span>
-            <span class="audience-lane-label">Stall Pickup</span>
-          </div>
-          <div class="audience-lane-who">WFH Workers · Remote Teams</div>
-        </div>
-      </div>
 
-      <!-- Block 5: CTAs -->
-      <div class="hero-cta-group">
-        <div class="hero-cta-row">
-          <a href="https://take.app/lawtte" class="btn-primary">
-            Order Now &nbsp;→
+        <h1 class="hero-h1 hero-fade d1">
+          Coffee for the<br>
+          <span>night shift</span>
+        </h1>
+
+        <p class="hero-p hero-fade d2">
+          Lawtte is built for the people who keep going after everyone else stops.
+          Students, remote workers, night owls — we keep the espresso running
+          while the rest of the neighbourhood sleeps.
+        </p>
+
+        <div class="hero-fade d3">
+          <a href="#order" class="hero-btn hero-btn-ring">
+            <span>Order now — pickup or delivery</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
-          <a href="#pickup" class="btn-ghost">Find Our Stall</a>
         </div>
-
-        <!-- Block 6: pro tip — subtle, indented from CTAs -->
-        <div class="hero-pro-tip">
-          <span class="pro-tip-icon">⚡</span>
-          <span class="pro-tip-text">
-            <strong>Pro Tip:</strong> Pre-order now to secure your spot in our next 30-min delivery batch — slots fill fast.
-          </span>
-        </div>
-      </div>
-
-      <!-- Block 7: live status — anchored, compact -->
-      <div class="hero-status-bar" style="margin-top: 2.5rem;">
-        <div class="status-indicator">
-          <div class="hours-pulse" id="status-pulse"></div>
-          <span class="status-label" id="status-text">Checking…</span>
-        </div>
-        <div class="status-hours">
-          <span>Sun–Thu &nbsp;8 PM – 11:30 PM</span>
-          <span>Fri–Sat &nbsp;&nbsp;8 PM – 12:30 AM</span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Hero visual ring -->
-    <div class="hero-visual">
-      <div class="coffee-ring">
-        <span class="ring-badge rb-1">Est. 2026</span>
-        <span class="ring-badge rb-2">Delivery + Pickup</span>
-        <span class="ring-badge rb-3">8 PM – 12:30 AM</span>
-        <svg class="ring-text-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <path id="circle-text-path" d="M 150,150 m -118,0 a 118,118 0 1,1 236,0 a 118,118 0 1,1 -236,0"/>
-          </defs>
-          <text font-size="9.5" fill="var(--text-slate)" font-family="DM Sans, sans-serif" letter-spacing="5" opacity="0.5">
-            <textPath href="#circle-text-path" startOffset="0%">NO LIES · JUST GOOD BEANS · NO LIES · JUST GOOD BEANS · </textPath>
-          </text>
-        </svg>
-        <svg class="coffee-cup-svg" width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M40 60 L52 130 L108 130 L120 60 Z" fill="#FFFFFF" stroke="var(--text-slate)" stroke-width="1.5"/>
-          <rect x="35" y="54" width="90" height="10" rx="2" fill="#FFFFFF" stroke="var(--text-slate)" stroke-width="1.5"/>
-          <path d="M120 75 Q145 75 145 95 Q145 115 120 115" stroke="var(--text-slate)" stroke-width="2" fill="none"/>
-          <ellipse cx="80" cy="59" rx="40" ry="5" fill="var(--copper-dim)"/>
-          <path d="M65 45 Q68 38 65 31 Q62 24 65 17" stroke="var(--copper)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.8"/>
-          <path d="M80 40 Q83 33 80 26 Q77 19 80 12" stroke="var(--copper)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
-          <path d="M95 45 Q98 38 95 31 Q92 24 95 17" stroke="var(--copper)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"/>
-        </svg>
       </div>
     </div>
   </section>
 
-  <!-- ── MARQUEE ── -->
-  <div class="marquee-section">
-    <div class="marquee-track">
-      <div class="marquee-item">Fuel the Grind <span>✦</span> Premium Espresso <span>✦</span> Late-Night Delivery <span>✦</span> Closer Than Others <span>✦</span> 5-Min Pickup <span>✦</span></div>
-      <div class="marquee-item">Fuel the Grind <span>✦</span> Premium Espresso <span>✦</span> Late-Night Delivery <span>✦</span> Closer Than Others <span>✦</span> 5-Min Pickup <span>✦</span></div>
-    </div>
-  </div>
-
-  <!-- ── STATS ── -->
-  <section id="stats">
-    <div class="stats-grid">
-      <div class="stat-card reveal">
-        <span class="stat-number">30 Min</span>
-        <span class="stat-label">Batch Delivery</span>
-        <span class="stat-sub">Strictly timed runs</span>
+  <!-- INFO STRIP -->
+  <div class="info-strip">
+    <div class="container info-strip-inner">
+      <div class="info-stat">
+        <span class="info-stat-num">8PM</span>
+        <span class="info-stat-label">Daily opening</span>
       </div>
-      <div class="stat-card reveal reveal-delay-1">
-        <span class="stat-number">&lt; 5 Min</span>
-        <span class="stat-label">Stall Pickup</span>
-        <span class="stat-sub">No queue, no detour</span>
+      <div class="info-divider"></div>
+      <div class="info-stat">
+        <span class="info-stat-num">3<span style="font-size:.9rem;font-weight:400">min</span></span>
+        <span class="info-stat-label">Average pickup time</span>
       </div>
-      <div class="stat-card reveal reveal-delay-2">
-        <span class="stat-number">0 Cal</span>
-        <span class="stat-label">Zero Sugar</span>
-        <span class="stat-sub">Guilt-free focus</span>
+      <div class="info-divider"></div>
+      <div class="info-stat">
+        <span class="info-stat-num">4</span>
+        <span class="info-stat-label">Delivery platforms</span>
       </div>
-    </div>
-  </section>
-
-  <!-- ── SERVICES ── -->
-  <section class="section" id="services">
-    <p class="section-label reveal">What We Do</p>
-    <h2 class="section-title reveal reveal-delay-1">Built for Those Who<br><em>Refuse to Slow Down.</em></h2>
-    <p class="section-sub reveal reveal-delay-2">Whether deep in a deadline or locked into a work sprint — delivery to your door at night, or a 5-minute stall pickup when you need a real break.</p>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="service-number">01</div>
-        <div class="service-time"><span class="service-time-dot"></span> Sun–Thu: 8PM–11:30PM &nbsp;|&nbsp; Fri–Sat: 8PM–12:30AM</div>
-        <h3 class="service-name">Late-Night<br>Delivery</h3>
-        <p class="service-desc">When your deadline isn't done and you can't afford to stop, we're still running. Hot espresso to your block while everyone else sleeps.</p>
-        <div class="service-tags"><span class="tag">Students</span><span class="tag">Night Owls</span><span class="tag">Freelancers</span></div>
-      </div>
-      <div class="service-card pickup-card reveal reveal-delay-1">
-        <div class="service-number">02</div>
-        <div class="service-time"><span class="service-time-dot"></span> Skip the chain · Pick up in under 5 min</div>
-        <h3 class="service-name">Stall<br>Pickup</h3>
-        <p class="service-desc">We're closer than you think. Skip the parking, the queue, and the 20-minute ZUS detour. Walk up, grab your coffee, and get straight back to your flow.</p>
-        <div class="service-tags"><span class="tag">WFH Workers</span><span class="tag">Remote Teams</span><span class="tag">Quick Break</span></div>
-        <div class="time-saving-callout">📍 Our stall is significantly closer than the nearest coffee chain — no wasted commute, no lost momentum.</div>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-number">03</div>
-        <div class="service-time"><span class="service-time-dot"></span> 0-Cal · 0-Sugar · Your rules</div>
-        <h3 class="service-name">Zero-Sugar<br>Options</h3>
-        <p class="service-desc">Stay sharp without the crash. 0-cal, 0-sugar syrups that actually taste good. Add a shot, swap the milk.</p>
-        <div class="service-tags"><span class="tag">Diet-Friendly</span><span class="tag">0-Cal Syrup</span><span class="tag">Oatmilk</span></div>
-      </div>
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-number">04</div>
-        <div class="service-time"><span class="service-time-dot"></span> Beat the rush</div>
-        <h3 class="service-name">Pre-Order &<br>Skip The Wait</h3>
-        <p class="service-desc">Lock in your order before the crunch hits. Pre-order ahead of time to secure your dispatch slot in our strict 30-minute delivery rounds.</p>
-        <div class="service-tags"><span class="tag">Fast Delivery</span><span class="tag">Priority Slots</span><span class="tag">Zero Wait</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── MENU ── -->
-  <section class="section" id="menu">
-    <div class="menu-header">
-      <div>
-        <p class="section-label reveal">No Lies.</p>
-        <h2 class="section-title reveal reveal-delay-1">Minimal Menu,<br><em>Maximum Craft.</em></h2>
-      </div>
-      <p class="reveal" style="font-size:0.9rem;color:var(--text-slate);max-width:220px;text-align:right;line-height:1.7;">Every drink is dialled in. Hot or cold. Regular or zero-sugar.</p>
-    </div>
-    <div class="menu-grid">
-      <div class="menu-card reveal">
-        <div class="menu-card-visual mv-americano"><div class="menu-badge">Pure</div></div>
-        <div class="menu-item-name">Americano</div>
-        <div class="menu-item-sub">Espresso + water. Pure. Sharp. Clean.</div>
-        <div class="menu-item-price">RM 6.50 <span>hot</span> / RM 7 <span>cold</span></div>
-      </div>
-      <div class="menu-card reveal reveal-delay-1">
-        <div class="menu-card-visual mv-latte"><div class="menu-badge">Smooth</div></div>
-        <div class="menu-item-name">Lawtte</div>
-        <div class="menu-item-sub">Espresso + steamed milk. Smooth &amp; balanced.</div>
-        <div class="menu-item-price">RM 8.50 <span>hot</span> / RM 9 <span>cold</span></div>
-      </div>
-      <div class="menu-card reveal reveal-delay-2">
-        <div class="menu-card-visual mv-spanish"><div class="menu-badge">Fan Fav</div></div>
-        <div class="menu-item-name">Spanish Lawtte</div>
-        <div class="menu-item-sub">Espresso + condensed milk. Rich &amp; indulgent.</div>
-        <div class="menu-item-price">RM 9.50 <span>hot</span> / RM 10 <span>cold</span></div>
-      </div>
-      <div class="menu-card reveal reveal-delay-3">
-        <div class="menu-card-visual mv-matcha"><div class="menu-badge">Premium</div></div>
-        <div class="menu-item-name">Matcha</div>
-        <div class="menu-item-sub">Premium ceremonial-grade. Earthy, creamy.</div>
-        <div class="menu-item-price">RM 11 <span>hot</span> / RM 12 <span>cold</span></div>
-      </div>
-    </div>
-    <div class="menu-addon-section reveal">
-      <div>
-        <div class="addon-label">Customise</div>
-        <div class="addon-title">Add-Ons</div>
-      </div>
-      <div class="addons-list">
-        <div class="addon-pill"><div class="addon-pill-name">Extra Shot</div><div class="addon-pill-price">+ RM 2</div></div>
-        <div class="addon-pill"><div class="addon-pill-name">0-Cal 0-Sugar Syrup</div><div class="addon-pill-price">+ RM 2</div></div>
-        <div class="addon-pill"><div class="addon-pill-name">Oatside Milk</div><div class="addon-pill-price">+ RM 2</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TRUTH BANNER ── -->
-  <div class="truth-banner">
-    <p class="truth-promise-label reveal">Our Promise</p>
-    <h2 class="truth-headline reveal">No Lies,<br><em>Just Good Beans.</em></h2>
-    <p class="truth-sub reveal reveal-delay-2">That's it. That's the whole mission.</p>
-  </div>
-
-  <!-- ── WHY US ── -->
-  <section class="section" id="why">
-    <p class="section-label reveal">Why lawtte</p>
-    <h2 class="section-title reveal reveal-delay-1">Coffee That<br><em>Gets It.</em></h2>
-    <div class="why-grid">
-      <div class="why-card reveal"><div class="why-num">01</div><div class="why-icon">🌙</div><div class="why-item-title">Open When Others Aren't</div><p class="why-item-desc">No more sacrificing focus time to drive somewhere. We deliver at night so you never have to leave your zone.</p></div>
-      <div class="why-card reveal reveal-delay-1"><div class="why-num">02</div><div class="why-icon">📍</div><div class="why-item-title">Closer Than the Chain</div><p class="why-item-desc">Our stall is a fraction of the distance to ZUS or any nearby chain. Pop in, pick up, and you're back at your desk in minutes.</p></div>
-      <div class="why-card reveal reveal-delay-2"><div class="why-num">03</div><div class="why-icon">🍃</div><div class="why-item-title">Zero-Sugar, Zero Guilt</div><p class="why-item-desc">Sharp focus shouldn't wreck your diet. Our 0-calorie, 0-sugar syrup options keep you going without compromise.</p></div>
-      <div class="why-card reveal reveal-delay-3"><div class="why-num">04</div><div class="why-icon">⚡</div><div class="why-item-title">Ready in 3–5 Minutes</div><p class="why-item-desc">Every cup prepped fresh. Batch deliveries go out every 30 minutes. Fast, reliable, consistent — every time.</p></div>
-    </div>
-  </section>
-
-  <!-- ── ORDER ── -->
-  <div class="order-section" id="order">
-    <div class="order-left">
-      <p class="section-label">Order Now</p>
-      <h2 class="section-title">Ready to<br><em>Order?</em></h2>
-      <p style="margin-bottom: 2.5rem; max-width: 400px; line-height: 1.9;">Fuel your grind without the wait. Order online for delivery, or just walk up to our stall. No back-and-forth — pick your drink and we'll start brewing.</p>
-      <a href="https://take.app/lawtte" class="btn-dark">Pre-Order / Order Here →</a>
-      <p style="display:flex; align-items:center; gap:0.6rem; margin-top:2.5rem; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted-light); opacity:0.8;">
-        <span style="width:4px;height:4px;background:currentColor;border-radius:50%;"></span>
-        No Lies, Just Good Beans
-        <span style="width:4px;height:4px;background:currentColor;border-radius:50%;"></span>
-      </p>
-    </div>
-    <div class="order-right">
-      <div class="order-mode-tabs">
-        <button class="mode-tab active" onclick="switchMode('delivery', this)">🛵 Delivery</button>
-        <button class="mode-tab" onclick="switchMode('pickup', this)">🚶 Pickup</button>
-      </div>
-      <div class="order-panel active" id="panel-delivery">
-        <div class="order-step"><div class="step-num">1</div><div><div class="step-title">Pre-Order via Take App</div><div class="step-desc">Don't wait until you crash. Make payment and pre-order to guarantee your spot in our strict 30-minute delivery batches.</div></div></div>
-        <div class="order-step"><div class="step-num">2</div><div><div class="step-title">We prepare</div><div class="step-desc">Your drink is freshly made in 3–5 minutes right before dispatch. Batch deliveries go out every 30 min.</div></div></div>
-        <div class="order-step"><div class="step-num">3</div><div><div class="step-title">Delivered to your door</div><div class="step-desc">Free delivery on orders above RM 15. RM 2 delivery fee below RM 15.</div></div></div>
-      </div>
-      <div class="order-panel" id="panel-pickup">
-        <div class="order-step"><div class="step-num">1</div><div><div class="step-title">Head to our stall</div><div class="step-desc">We're right here in Puncak Perdana — much closer than any coffee chain nearby. No parking hassle, no long walk.</div></div></div>
-        <div class="order-step"><div class="step-num">2</div><div><div class="step-title">Order &amp; pay</div><div class="step-desc">Walk up and place your order directly or show us your pre-order. Ready in 3–5 minutes. No app needed, no waiting in a long queue.</div></div></div>
-        <div class="order-step"><div class="step-num">3</div><div><div class="step-title">Grab &amp; go</div><div class="step-desc">Your coffee is fresh and ready. Back at your desk faster than any alternative nearby.</div></div></div>
-        <div class="pickup-location-card">
-          <div class="pickup-location-label">Our Stall</div>
-          <div class="pickup-location-name">lawtte @ Puncak Perdana</div>
-          <div class="pickup-location-addr">Shah Alam, Selangor<br>Hours match delivery schedule</div>
-          <div style="margin-top:1rem; color:var(--copper); font-size:0.82rem; font-weight:700;">📍 Closer than the nearest ZUS or coffee chain</div>
-        </div>
+      <div class="info-divider"></div>
+      <div class="info-stat">
+        <span class="info-stat-num">0<span style="font-size:.9rem;font-weight:400"> cal/sugar</span></span>
+        <span class="info-stat-label">Sugar syrup option</span>
       </div>
     </div>
   </div>
 
-  <!-- ── DELIVERY ── -->
-  <section class="section" id="delivery">
-    <div class="delivery-grid">
-      <div>
-        <p class="section-label reveal">Delivery Coverage</p>
-        <h2 class="section-title reveal reveal-delay-1">We Cover<br><em>Your Area.</em></h2>
-        <p class="section-sub reveal reveal-delay-2" style="margin-bottom:0.5rem;">Personal delivery on orders above RM 15. Below RM 15, a small RM 2 delivery fee applies.</p>
-        <div class="zone-list reveal reveal-delay-3">
-          <div class="zone-item"><div class="zone-dot"></div><span class="zone-name">UiTM Puncak Perdana</span><span class="zone-tag">Active</span></div>
-        </div>
-        <p style="margin-top:1.5rem; color:var(--text-slate); line-height:1.85; font-size:0.9rem;" class="reveal reveal-delay-3">Outside the zone? Slide into our WhatsApp DMs to request a Special Delivery. We'll calculate a fair fuel fee so you can stay at your desk without the detour.</p>
-      </div>
-      <div class="reveal reveal-delay-2">
-        <div class="info-card"><div class="info-card-title">Free Delivery</div><div class="info-card-desc">Orders above RM 15 get free personal delivery to all covered areas.</div></div>
-        <div class="info-card"><div class="info-card-title">RM 2 Delivery Fee</div><div class="info-card-desc">Orders below RM 15 — a small RM 2 charge covers packaging and delivery.</div></div>
-        <div class="info-card"><div class="info-card-title">Batch Rounds Every 30 Min</div><div class="info-card-desc">Orders are consolidated and dispatched in efficient 30-minute rounds for freshness and speed.</div></div>
-        <div class="info-card"><div class="info-card-title">Special Delivery</div><div class="info-card-desc">Outside the zone? DM us on WhatsApp and we'll work it out with a fair fuel fee.</div></div>
-      </div>
-    </div>
-
-    <!-- ── PICKUP ── -->
-    <div class="pickup-section" id="pickup">
-      <p class="section-label reveal">Stall Pickup</p>
-      <h2 class="section-title reveal reveal-delay-1">Skip the Chain.<br><em>We're Already Here.</em></h2>
-      <div class="pickup-grid">
-        <div class="reveal">
-          <div class="pickup-vs-chain">
-            <div class="vs-header">
-              <span class="vs-header-left">lawtte Stall</span>
-              <span class="vs-header-center"></span>
-              <span class="vs-header-right">Nearby Chain</span>
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <p class="eyebrow">Why Lawtte</p>
+      <div class="about-grid">
+        <div>
+          <h2 class="section-title">A late-night coffee spot that actually stays open late.</h2>
+          <p class="section-sub" style="margin-bottom:2.5rem;margin-top:.75rem">
+            Most cafes in Section U10 close before you need them. Lawtte starts at 8PM — built for
+            the hours when assignments pile up, meetings cross time zones, and the night is still young.
+          </p>
+          <div class="about-card">
+            <div class="about-card-icon">☕</div>
+            <div class="about-card-title">No lies, just good beans</div>
+            <div class="about-card-text">
+              Every drink is made to order. We use fresh ingredients, offer 0-calorie syrup alternatives,
+              and keep our menu tight so everything we serve is something we're proud of. No filler.
             </div>
-            <div class="vs-row"><div class="vs-option winner">Right here in Puncak Perdana</div><div class="vs-label">Location</div><div class="vs-option loser">Extra drive required</div></div>
-            <div class="vs-row"><div class="vs-option winner">Walk up, order, done</div><div class="vs-label">Queue</div><div class="vs-option loser">Long queue, crowded</div></div>
-            <div class="vs-row"><div class="vs-option winner">Ready in 3–5 min</div><div class="vs-label">Wait Time</div><div class="vs-option loser">10–20 min trip + wait</div></div>
-            <div class="vs-row"><div class="vs-option winner">No parking needed</div><div class="vs-label">Parking</div><div class="vs-option loser">Parking headache</div></div>
-            <div class="vs-row"><div class="vs-option winner">RM 6.50 – RM 12</div><div class="vs-label">Price</div><div class="vs-option loser">RM 13 – RM 22+</div></div>
           </div>
         </div>
-        <div class="stall-info-card reveal reveal-delay-2">
-          <div class="stall-info-label">Find Us</div>
-          <div class="stall-name">lawtte Stall</div>
-          <div class="stall-address">
-            Dewan Baiduri MBSA Sunway Alam Suria<br>
-            Puncak Perdana, Shah Alam<br>
-            Selangor, Malaysia
-          </div>
-          <div class="stall-hours-list">
-            <div class="stall-hours-row"><span class="stall-hours-day">Sun – Thu</span><span style="font-weight:700;">8:00 PM – 11:30 PM</span></div>
-            <div class="stall-hours-row"><span class="stall-hours-day">Fri – Sat</span><span style="font-weight:700;">8:00 PM – 12:30 AM</span></div>
-          </div>
-          <div class="stall-cta-note">💬 Not sure if we're open? Check our live status at the top of the page, or WhatsApp us before heading over.</div>
+        <div class="about-features">
+          <div class="about-feature"><div class="about-feature-marker">01</div><div class="about-feature-text"><strong>Opens at 8PM</strong> — when other cafes are locking up, we're just getting started. Every single night.</div></div>
+          <div class="about-feature"><div class="about-feature-marker">02</div><div class="about-feature-text"><strong>Pickup in 3 minutes</strong> — live in Section U10? Walk in, grab your coffee, walk out. No waiting for a rider.</div></div>
+          <div class="about-feature"><div class="about-feature-marker">03</div><div class="about-feature-text"><strong>Zero-sugar syrups</strong> — all drinks available with 0-calorie, 0-sugar syrup. Stay awake without the sugar crash.</div></div>
+          <div class="about-feature"><div class="about-feature-marker">04</div><div class="about-feature-text"><strong>On every app</strong> — GrabFood, Shopee Food, FoodPanda. Search "Lawtte" and order in seconds.</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── FOOTER CTA ── -->
-  <section id="footer-cta">
-    <div class="footer-cta-content reveal">
-      <div class="footer-big-text">Your Most Productive Day<br><em>Starts Here.</em></div>
-      <div class="footer-cta-buttons">
-        <a href="https://take.app/lawtte" class="wa-btn">☕ Order for Delivery</a>
-        <a href="#pickup" class="wa-btn-ghost">📍 Find Our Stall</a>
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <div class="container">
+      <div class="menu-header">
+        <div>
+          <p class="eyebrow">The Menu</p>
+          <h2 class="section-title">Short. Good. No filler.</h2>
+          <p class="section-sub">Everything we make, we'd drink ourselves.</p>
+        </div>
       </div>
-      <span class="footer-tagline-stamp">No Lies, Just Good Beans.</span>
+
+      <div class="menu-grid">
+        <div class="menu-card" style="grid-column:1/-1;padding:.85rem 1.75rem;background:rgba(236,78,2,.04);border-color:rgba(236,78,2,.08);cursor:default;transform:none">
+          <span style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)">Coffee</span>
+        </div>
+
+        <div class="menu-card reveal">
+          <div class="menu-card-head"><span class="menu-card-name">Americano</span><div class="menu-card-prices"><span class="menu-card-price">RM 6.50</span><span class="menu-card-price">RM 7.00</span></div></div>
+          <p class="menu-card-desc">Double shot + hot water. Simple, clean, effective.</p>
+        </div>
+
+        <div class="menu-card reveal d1">
+          <div class="menu-card-head"><span class="menu-card-name">Latte</span><div class="menu-card-prices"><span class="menu-card-price">RM 8.50</span><span class="menu-card-price">RM 9.00</span></div></div>
+          <p class="menu-card-desc">Double shot + steamed milk. The classic, done right.</p>
+        </div>
+
+        <div class="menu-card reveal d2">
+          <div class="menu-card-head"><span class="menu-card-name">Spanish Latte</span><div class="menu-card-prices"><span class="menu-card-price">RM 9.50</span><span class="menu-card-price">RM 10.00</span></div></div>
+          <p class="menu-card-desc">With condensed milk. Sweet, strong, dangerous.</p>
+        </div>
+
+        <div class="menu-card" style="grid-column:1/-1;padding:.85rem 1.75rem;background:rgba(236,78,2,.04);border-color:rgba(236,78,2,.08);cursor:default;transform:none">
+          <span style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)">Non-Coffee</span>
+        </div>
+
+        <div class="menu-card reveal d3">
+          <div class="menu-card-head"><span class="menu-card-name">Matcha</span><div class="menu-card-prices"><span class="menu-card-price">RM 11.00</span><span class="menu-card-price">RM 12.00</span></div></div>
+          <p class="menu-card-desc">Ceremonial grade matcha. Hot or iced.</p>
+        </div>
+
+        <div class="menu-card reveal d3" style="display:flex;flex-direction:column;justify-content:center;background:rgba(236,78,2,.03);border-style:dashed">
+          <p style="font-size:.8rem;color:var(--cream-dim);text-align:center">More coming soon.</p>
+        </div>
+
+        <div class="menu-card" style="grid-column:1/-1;margin-top:.5rem">
+          <p style="font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem">Add-Ons</p>
+          <div class="menu-addons">
+            <div class="menu-addon"><span class="menu-addon-name">Extra Shot</span><span class="menu-addon-price">+RM 2.00</span></div>
+            <div class="menu-addon"><span class="menu-addon-name">Extra Syrup <span class="menu-addon-tag">0 cal</span></span><span class="menu-addon-price">+RM 2.00</span></div>
+            <div class="menu-addon"><span class="menu-addon-name">Oatside Milk</span><span class="menu-addon-price">+RM 2.00</span></div>
+            <div class="menu-addon"><span class="menu-addon-name">Soy Milk</span><span class="menu-addon-price">+RM 2.00</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ── FOOTER ── -->
+  <!-- ORDER -->
+  <section class="order" id="order">
+    <div class="container">
+      <p class="eyebrow">How to Order</p>
+      <h2 class="section-title">Find us on your app of choice.</h2>
+      <p class="section-sub">Search "Lawtte" on any platform. For pickup, just select "self pickup" at checkout.</p>
+
+      <div class="order-grid">
+        <a href="#" class="order-card reveal" aria-label="Order on GrabFood">
+          <div class="order-card-icon oc-grab">GF</div>
+          <div class="order-card-name">GrabFood</div>
+          <div class="order-card-desc">Search "Lawtte" and order for delivery or pickup.</div>
+        </a>
+        <a href="#" class="order-card reveal d1" aria-label="Order on Shopee Food">
+          <div class="order-card-icon oc-shopee">SF</div>
+          <div class="order-card-name">Shopee Food</div>
+          <div class="order-card-desc">Available on Shopee Food for delivery & pickup.</div>
+        </a>
+        <a href="#" class="order-card reveal d2" aria-label="Order on FoodPanda">
+          <div class="order-card-icon oc-panda">FP</div>
+          <div class="order-card-name">FoodPanda</div>
+          <div class="order-card-desc">Find us on Panda and place your order.</div>
+        </a>
+        <a href="#" class="order-card reveal d3" aria-label="Self pickup">
+          <div class="order-card-icon oc-pickup">PU</div>
+          <div class="order-card-name">Self Pickup</div>
+          <div class="order-card-desc">Skip the wait — ready in 3 minutes.</div>
+        </a>
+      </div>
+
+      <div class="order-pickup-banner reveal">
+        <div class="order-pickup-icon">⚡</div>
+        <div class="order-pickup-text">
+          <strong>Pickup in 3 minutes — no rider needed <span class="order-pickup-badge">Fastest option</span></strong>
+          <span>Select "self pickup" on Grab, Shopee Food, or FoodPanda. Walk in, grab your coffee, walk out.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOURS -->
+  <section class="hours" id="hours">
+    <div class="container">
+      <p class="eyebrow">Hours</p>
+      <h2 class="section-title">Open late. Every single night.</h2>
+      <p class="section-sub">No early closings. No "sorry we're closed" at 10.</p>
+
+      <div class="hours-grid">
+        <div class="hours-card reveal">
+          <div class="hours-day">Sunday – Thursday</div>
+          <div class="hours-time">8 – 11:30 PM</div>
+          <div class="hours-note">3.5 hours of late-night service</div>
+        </div>
+        <div class="hours-card reveal d1">
+          <div class="hours-day">Friday & Saturday</div>
+          <div class="hours-time">8 PM – 12:30 AM</div>
+          <div class="hours-note">Extended for the weekend warriors</div>
+        </div>
+      </div>
+
+      <p class="hours-footnote reveal">Exam periods may feature extended hours. Follow us on Instagram or TikTok for real-time updates.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="container">
+      <p class="cta-tagline">It's late. You're still going.<br><em>We've got the coffee.</em></p>
+      <p class="cta-sub">On Grab, Shopee Food, FoodPanda — or pickup in 3 minutes.</p>
+      <a href="#order" class="btn-dark">Order now — pickup or delivery</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
-    <div class="footer-top">
+    <div class="container footer-inner">
       <div>
-        <div class="footer-brand-name">law<span>tte</span></div>
-        <p class="footer-brand-tagline">Fuel the Night. Own the Day. Premium late-night coffee for the grinders.</p>
+        <div class="footer-brand">Lawtte<span>.</span></div>
+        <div class="footer-tagline">Section U10 — Late night coffee</div>
       </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Menu</div>
-        <ul>
-          <li><a href="#menu">Americano</a></li>
-          <li><a href="#menu">Lawtte</a></li>
-          <li><a href="#menu">Spanish Lawtte</a></li>
-          <li><a href="#menu">Matcha</a></li>
-        </ul>
+      <div class="footer-info">
+        Home-based stall · Section U10 & surrounding areas<br>
+        Available on Grab · Shopee Food · FoodPanda
       </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Visit & Order</div>
-        <ul>
-          <li><a href="#delivery">Delivery Areas</a></li>
-          <li><a href="#pickup">Stall Pickup</a></li>
-          <li><a href="#order">Pre-Order Now</a></li>
-          <li><a href="#services">Late-Night Delivery</a></li>
-        </ul>
+      <div class="footer-hours">
+        Open <strong>8PM nightly</strong><br>
+        Pickup until last order
       </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Connect</div>
-        <ul>
-          <li><a href="https://wa.me/60197152504">WhatsApp</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">TikTok</a></li>
-          <li><a href="#">GrabFood</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 lawtte. All rights reserved.</span>
-      <span>Puncak Perdana, Shah Alam</span>
     </div>
   </footer>
 
-  <div class="mobile-cta">
-    <a href="https://take.app/lawtte">Order Now · Delivery &amp; Pickup</a>
-  </div>
-
   <script>
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+    // ─── DITHERING SHADER CANVAS ───
+    (function() {
+      const canvas = document.getElementById('dither-canvas');
+      const heroCard = document.getElementById('heroCard');
+      const ctx = canvas.getContext('2d');
+      let animId;
+      let speed = 0.15;
+      let isHovered = false;
+      let time = 0;
 
-    function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('open');
-      document.getElementById('hamburger').classList.toggle('active');
-    }
+      heroCard.addEventListener('mouseenter', () => { isHovered = true; speed = 0.6; });
+      heroCard.addEventListener('mouseleave', () => { isHovered = false; speed = 0.15; });
 
-    function switchMode(mode, btn) {
-      document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('panel-delivery').classList.remove('active');
-      document.getElementById('panel-pickup').classList.remove('active');
-      document.getElementById('panel-' + mode).classList.add('active');
-    }
+      function resize() {
+        const rect = heroCard.getBoundingClientRect();
+        canvas.width = rect.width * devicePixelRatio;
+        canvas.height = rect.height * devicePixelRatio;
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+      }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-    document.querySelectorAll('.reveal, .truth-headline').forEach(el => observer.observe(el));
+      // Simplex-like noise helpers
+      function hash(x, y) {
+        let h = x * 374761393 + y * 668265263;
+        h = (h ^ (h >> 13)) * 1274126177;
+        return (h ^ (h >> 16)) / 2147483647;
+      }
 
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) {
-          e.preventDefault();
-          t.scrollIntoView({ behavior: 'smooth' });
-          document.getElementById('navLinks').classList.remove('open');
-          document.getElementById('hamburger').classList.remove('active');
+      function smoothNoise(x, y) {
+        const ix = Math.floor(x), iy = Math.floor(y);
+        const fx = x - ix, fy = y - iy;
+        const sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
+        const n00 = hash(ix, iy), n10 = hash(ix + 1, iy);
+        const n01 = hash(ix, iy + 1), n11 = hash(ix + 1, iy + 1);
+        return n00 * (1-sx) * (1-sy) + n10 * sx * (1-sy) + n01 * (1-sx) * sy + n11 * sx * sy;
+      }
+
+      function fbm(x, y, octaves) {
+        let value = 0, amp = 1, freq = 1, totalAmp = 0;
+        for (let i = 0; i < octaves; i++) {
+          value += smoothNoise(x * freq, y * freq) * amp;
+          totalAmp += amp;
+          amp *= 0.5;
+          freq *= 2;
+        }
+        return value / totalAmp;
+      }
+
+      function draw() {
+        time += 0.016 * speed;
+        const w = canvas.width, h = canvas.height;
+        const dw = Math.floor(w / devicePixelRatio);
+        const dh = Math.floor(h / devicePixelRatio);
+        ctx.clearRect(0, 0, w, h);
+
+        const imageData = ctx.createImageData(w, h);
+        const data = imageData.data;
+
+        const scale = 12 + 8 * speed;
+        const offsetX = time * 0.3;
+        const offsetY = time * 0.5;
+
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            const nx = (x / scale) + offsetX;
+            const ny = (y / scale) + offsetY;
+
+            // Warp the noise coordinates
+            const warpX = fbm(nx + 0.5, ny, 3) * 2 - 1;
+            const warpY = fbm(nx, ny + 0.5, 3) * 2 - 1;
+
+            const noiseVal = fbm(nx + warpX * 0.3, ny + warpY * 0.3, 4);
+
+            // Dither threshold
+            const threshold = 0.5 + Math.sin(x * 0.5 + y * 0.5 + time * 0.5) * 0.08;
+            const on = noiseVal > threshold ? 1 : 0;
+
+            const idx = (y * w + x) * 4;
+            const brightness = on * 255;
+            data[idx]     = brightness;     // R (orange-ish when on)
+            data[idx + 1] = brightness * 0.6; // G
+            data[idx + 2] = brightness * 0.2; // B
+            data[idx + 3] = on ? 40 : 0;      // low alpha
+          }
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+        animId = requestAnimationFrame(draw);
+      }
+
+      resize();
+      draw();
+
+      window.addEventListener('resize', resize);
+
+      // Cleanup on page unload
+      window.addEventListener('beforeunload', () => cancelAnimationFrame(animId));
+    })();
+
+    // ─── SCROLL REVEAL ───
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
         }
       });
-    });
-
-    function checkStoreStatus() {
-      const now = new Date();
-      const day = now.getDay();
-      const time = now.getHours() + now.getMinutes() / 60;
-      let isOpen = false;
-      if (day === 0) { if (time < 0.5 || (time >= 20 && time < 23.5)) isOpen = true; }
-      else if (day >= 1 && day <= 4) { if (time >= 20 && time < 23.5) isOpen = true; }
-      else if (day === 5) { if (time >= 20) isOpen = true; }
-      else if (day === 6) { if (time < 0.5 || time >= 20) isOpen = true; }
-      const pulse = document.getElementById('status-pulse');
-      const label = document.getElementById('status-text');
-      if (isOpen) {
-        pulse.classList.remove('preorder');
-        label.textContent = 'Open Now — Brewing';
-      } else {
-        pulse.classList.add('preorder');
-        label.textContent = 'Pre-Orders Open';
-      }
-    }
-    checkStoreStatus();
-    setInterval(checkStoreStatus, 60000);
-
-    window.addEventListener('scroll', () => {
-      const ring = document.querySelector('.coffee-ring');
-      if (ring) ring.style.transform = `rotate(${window.scrollY * 0.01}deg) translateY(${window.scrollY * 0.08}px)`;
-    });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
+
+how to add links that open my shop in this coding. for gran, shoppe food etc etc
