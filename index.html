@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lawtte — Coffee for the night shift of life</title>
-  <meta name="description" content="Lawtte: late-night coffee for students & remote workers in Section U10. Pickup in 3 min or order via Grab, Shopee Food, FoodPanda.">
+  <title>the_baRRista — Coffee for the night shift of life</title>
+  <meta name="description" content="the_baRRista: late-night coffee for students & remote workers in Section U10. Pickup in 3 min or order via Grab, Shopee Food, FoodPanda.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800,0..100&family=Figtree:wght@300..600&display=swap" rel="stylesheet">
@@ -123,27 +123,6 @@
       letter-spacing:.02em;
     }
     .nav-links a:hover{color:var(--text)}
-
-    .nav-status{
-      display:inline-flex;
-      align-items:center;
-      gap:.4rem;
-      font-size:.7rem;
-      font-weight:500;
-      letter-spacing:.04em;
-      margin-right:.25rem;
-    }
-    .nav-status-dot{
-      width:7px;
-      height:7px;
-      border-radius:50%;
-      flex-shrink:0;
-    }
-    .nav-status-dot.open{background:#3dd68c;box-shadow:0 0 4px rgba(61,214,140,.5)}
-    .nav-status-dot.closed{background:var(--text-faint)}
-    .nav-status-label{color:var(--text-dim);transition:color .2s}
-    .nav-status-label.open{color:rgba(61,214,140,.9)}
-    .nav-status-label.closed{color:var(--text-faint)}
 
     .nav-cta{
       padding:.5rem 1.25rem;
@@ -444,7 +423,6 @@
     }
     .menu-card-prices{display:flex;gap:.75rem}
     .menu-card-price{font-size:.85rem;color:var(--text-dim);font-variant-numeric:tabular-nums}
-    .menu-card-price:first-child::after{content:'·';margin-left:.75rem;color:var(--text-faint)}
     .menu-card-desc{font-size:.8rem;color:var(--text-dim);line-height:1.6}
     .menu-addons{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border)}
     .menu-addon{display:flex;justify-content:space-between;align-items:center;padding:.6rem .85rem;background:rgba(255,255,255,.02);border-radius:6px;font-size:.8rem}
@@ -472,58 +450,6 @@
     .oc-pickup{background:rgba(236,78,2,.12);color:var(--orange)}
     .order-card-name{font-family:var(--display);font-weight:580;font-variation-settings:'opsz' 36,'SOFT' 80;font-size:.95rem;color:var(--text);margin-bottom:.35rem}
     .order-card-desc{font-size:.78rem;color:var(--text-dim);line-height:1.5;flex:1}
-    .order-status{
-      margin-top:1.5rem;
-      display:flex;
-      align-items:center;
-      gap:.85rem;
-      padding:.9rem 1.5rem;
-      background:var(--bg-mid);
-      border:1px solid var(--border);
-      border-radius:10px;
-      transition:border-color .3s;
-    }
-    .order-status-dot{
-      width:10px;
-      height:10px;
-      border-radius:50%;
-      flex-shrink:0;
-      position:relative;
-    }
-    .order-status-dot.open{
-      background:#3dd68c;
-      box-shadow:0 0 6px rgba(61,214,140,.35);
-    }
-    .order-status-dot.open::after{
-      content:'';
-      position:absolute;
-      inset:-4px;
-      border-radius:50%;
-      background:rgba(61,214,140,.15);
-      animation:statusPulse 2s ease-in-out infinite;
-    }
-    .order-status-dot.closed{
-      background:var(--text-faint);
-      box-shadow:0 0 4px rgba(125,115,104,.15);
-    }
-    @keyframes statusPulse{
-      0%,100%{transform:scale(1);opacity:.6}
-      50%{transform:scale(1.6);opacity:0}
-    }
-    .order-status-text{
-      font-size:.8rem;
-      color:var(--text-muted);
-      line-height:1.5;
-      flex:1;
-    }
-    .order-status-text strong{color:var(--text);font-weight:600}
-    .order-status-text a{
-      color:var(--orange);
-      text-decoration:none;
-      font-weight:500;
-      transition:color .15s;
-    }
-    .order-status-text a:hover{color:var(--orange-bright)}
 
     .order-pickup-banner{
       margin-top:1.5rem;
@@ -633,17 +559,13 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#home" class="nav-logo">Lawtte<span>.</span></a>
+    <a href="#home" class="nav-logo">the_baRRista<span>.</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#menu">Menu</a></li>
       <li><a href="#order">Order</a></li>
       <li><a href="#hours">Hours</a></li>
     </ul>
-    <span class="nav-status" id="navStatus">
-      <span class="nav-status-dot" id="navStatusDot"></span>
-      <span class="nav-status-label" id="navStatusLabel"></span>
-    </span>
     <a href="#order" class="nav-cta">Order</a>
   </nav>
 
@@ -657,7 +579,7 @@
             <div class="hero-badge-dot-ping"></div>
             <div class="hero-badge-dot-inner"></div>
           </div>
-          Section U10 — Open 8PM nightly
+          Section U10 — Open 8PM, Fri–Sun
         </div>
 
         <h1 class="hero-h1 hero-fade d1">
@@ -666,13 +588,11 @@
         </h1>
 
         <p class="hero-p hero-fade d2" style="max-width:600px;margin-bottom:1.2rem">
-          Lawtte is built for the people who keep going after everyone else stops.
-          Students, remote workers, night owls — we keep the espresso running
-          while the rest of the neighbourhood sleeps.
+          the_baRRista is built for the people who keep going after everyone else stops—without compromising their focus or fitness. Students, remote workers, and night owls: we keep the espresso running and the zero-calorie, zero-sugar syrups pouring while the rest of the neighborhood sleeps.
         </p>
 
         <p class="hero-tagline hero-fade d3" style="font-family:var(--display);font-size:.95rem;font-style:italic;font-weight:400;font-variation-settings:'opsz' 36,'SOFT' 100;color:var(--text-dim);margin-bottom:1.75rem;letter-spacing:-.01em">
-          <span style="color:var(--text-muted)">—</span> right judgement cup of beans <span style="color:var(--text-muted)">—</span>
+          <span style="color:var(--text-muted)">—</span> taste beyond reasonable doubt <span style="color:var(--text-muted)">—</span>
         </p>
 
         <div class="hero-fade d4">
@@ -690,12 +610,7 @@
     <div class="container info-strip-inner">
       <div class="info-stat">
         <span class="info-stat-num">8PM</span>
-        <span class="info-stat-label">Daily opening</span>
-      </div>
-      <div class="info-divider"></div>
-      <div class="info-stat">
-        <span class="info-stat-num">3<span style="font-size:.9rem;font-weight:400">min</span></span>
-        <span class="info-stat-label">Average pickup time</span>
+        <span class="info-stat-label">Fri–Sun opening</span>
       </div>
       <div class="info-divider"></div>
       <div class="info-stat">
@@ -705,7 +620,7 @@
       <div class="info-divider"></div>
       <div class="info-stat">
         <span class="info-stat-num">0<span style="font-size:.9rem;font-weight:400">cal</span></span>
-        <span class="info-stat-label">Sugar syrup option</span>
+        <span class="info-stat-label">0-sugar syrup option</span>
       </div>
     </div>
   </div>
@@ -713,29 +628,21 @@
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="container">
-      <p class="eyebrow">About Lawtte</p>
+      <p class="eyebrow">About the_baRRista</p>
       <div class="about-grid">
         <div>
           <h2 class="section-title">We're your neighbours. We make your coffee.</h2>
           <div class="about-manifesto" style="font-size:.95rem;color:var(--text-muted);line-height:1.8;margin-bottom:2rem;margin-top:.75rem;max-width:56ch">
-            <p style="margin-bottom:1rem">We are Lawtte. A student-led coffee setup in <strong style="color:var(--text)">Puncak Perdana</strong> built specifically for those who refuse to slow down. We don't believe in corporate gimmicks, overcomplicated menus, or overpriced drinks.</p>
-            <p style="margin-bottom:1rem">Whether you're a student pulling a 2 AM all-nighter or a remote worker locking into an early morning sprint, we serve premium espresso, high-grade matcha, and guilt-free 0-sugar options to keep you sharp without the crash.</p>
-            <p>No compromise, no fluff — just real fuel delivered straight to your block or ready at our stall in minutes.</p>
-          </div>
-          <div class="about-card">
-            <div class="about-card-icon">☕</div>
-            <div class="about-card-title">No lies, just good beans</div>
-            <div class="about-card-text">
-              Every drink is made to order. We use fresh ingredients, offer 0-calorie syrup alternatives,
-              and keep our menu tight so everything we serve is something we're proud of. No filler.
-            </div>
+            <p style="margin-bottom:1rem">We are the_baRRista. Why the double 'r'? One for the future baRrister, one for the current baRista.</p>
+            <p style="margin-bottom:1rem">Built in <strong style="color:var(--text)">Puncak Perdana</strong>, it is a student-led coffee setup designed exclusively for those who refuse to slow down. We stripped away the corporate gimmicks and overcomplicated menus to focus on what matters: late night fuel.</p>
+            <p>Whether you're pulling a 2 AM all-nighter or locking into an early morning sprint, we serve espresso, matcha, and guilt-free zero-sugar options syrup. No compromises—just clean, crash-free energy delivered straight to your block or ready at our stall in minutes.</p>
           </div>
         </div>
         <div class="about-features">
-          <div class="about-feature"><div class="about-feature-marker">01</div><div class="about-feature-text"><strong>Opens at 8PM</strong> — when other cafes are locking up, we're just getting started. Every single night.</div></div>
-          <div class="about-feature"><div class="about-feature-marker">02</div><div class="about-feature-text"><strong>Pickup in 3 minutes</strong> — live in Section U10? Walk in, grab your coffee, walk out. No waiting for a rider.</div></div>
+          <div class="about-feature"><div class="about-feature-marker">01</div><div class="about-feature-text"><strong>Opens at 8PM</strong> — when other cafes are locking up, we're just getting started. Friday to Sunday.</div></div>
+          <div class="about-feature"><div class="about-feature-marker">02</div><div class="about-feature-text"><strong>Pickup</strong> — live in Section U10? Walk in, grab your coffee, walk out. No waiting for a rider.</div></div>
           <div class="about-feature"><div class="about-feature-marker">03</div><div class="about-feature-text"><strong>Zero-sugar syrups</strong> — all drinks available with 0-calorie, 0-sugar syrup. Stay awake without the sugar crash.</div></div>
-          <div class="about-feature"><div class="about-feature-marker">04</div><div class="about-feature-text"><strong>On every app</strong> — GrabFood, Shopee Food, FoodPanda. Search "Lawtte" and order in seconds.</div></div>
+          <div class="about-feature"><div class="about-feature-marker">04</div><div class="about-feature-text"><strong>On every app</strong> — GrabFood, Shopee Food, FoodPanda. Search "the_baRRista" and order in seconds.</div></div>
         </div>
       </div>
     </div>
@@ -747,8 +654,8 @@
       <div class="menu-header">
         <div>
           <p class="eyebrow">The Menu</p>
-          <h2 class="section-title">Short. Good. No filler.</h2>
-          <p class="section-sub">Everything we make, we'd drink ourselves.</p>
+          <h2 class="section-title">Short. Iced. No filler.</h2>
+          <p class="section-sub">Everything's served iced for now — no hot options.</p>
         </div>
       </div>
 
@@ -758,17 +665,17 @@
         </div>
 
         <div class="menu-card reveal">
-          <div class="menu-card-head"><span class="menu-card-name">Americano</span><div class="menu-card-prices"><span class="menu-card-price">RM 6.50</span><span class="menu-card-price">RM 7.00</span></div></div>
-          <p class="menu-card-desc">Double shot + hot water. Simple, clean, effective.</p>
+          <div class="menu-card-head"><span class="menu-card-name">Americano</span><div class="menu-card-prices"><span class="menu-card-price">RM 7.00</span></div></div>
+          <p class="menu-card-desc">Double shot + water. Simple, clean, effective.</p>
         </div>
 
         <div class="menu-card reveal d1">
-          <div class="menu-card-head"><span class="menu-card-name">Latte</span><div class="menu-card-prices"><span class="menu-card-price">RM 8.50</span><span class="menu-card-price">RM 9.00</span></div></div>
-          <p class="menu-card-desc">Double shot + steamed milk. The classic, done right.</p>
+          <div class="menu-card-head"><span class="menu-card-name">Latte</span><div class="menu-card-prices"><span class="menu-card-price">RM 9.00</span></div></div>
+          <p class="menu-card-desc">Double shot + cold milk. The classic, done right.</p>
         </div>
 
         <div class="menu-card reveal d2">
-          <div class="menu-card-head"><span class="menu-card-name">Spanish Latte</span><div class="menu-card-prices"><span class="menu-card-price">RM 9.50</span><span class="menu-card-price">RM 10.00</span></div></div>
+          <div class="menu-card-head"><span class="menu-card-name">Spanish Latte</span><div class="menu-card-prices"><span class="menu-card-price">RM 10.00</span></div></div>
           <p class="menu-card-desc">With condensed milk. Sweet, strong, dangerous.</p>
         </div>
 
@@ -777,8 +684,8 @@
         </div>
 
         <div class="menu-card reveal d3">
-          <div class="menu-card-head"><span class="menu-card-name">Matcha</span><div class="menu-card-prices"><span class="menu-card-price">RM 11.00</span><span class="menu-card-price">RM 12.00</span></div></div>
-          <p class="menu-card-desc">Ceremonial grade matcha. Hot or iced.</p>
+          <div class="menu-card-head"><span class="menu-card-name">Matcha</span><div class="menu-card-prices"><span class="menu-card-price">RM 12.00</span></div></div>
+          <p class="menu-card-desc">Ceremonial grade matcha, whisked over ice.</p>
         </div>
 
         <div class="menu-card reveal d3" style="display:flex;flex-direction:column;justify-content:center;background:rgba(236,78,2,.03);border-style:dashed">
@@ -790,7 +697,6 @@
           <div class="menu-addons">
             <div class="menu-addon"><span class="menu-addon-name">Extra Shot</span><span class="menu-addon-price">+RM 2.00</span></div>
             <div class="menu-addon"><span class="menu-addon-name">Extra Syrup <span class="menu-addon-tag">0 cal</span></span><span class="menu-addon-price">+RM 2.00</span></div>
-            <div class="menu-addon"><span class="menu-addon-name">Oatside Milk</span><span class="menu-addon-price">+RM 2.00</span></div>
           </div>
         </div>
       </div>
@@ -802,13 +708,13 @@
     <div class="container">
       <p class="eyebrow">How to Order</p>
       <h2 class="section-title">Find us on your app of choice.</h2>
-      <p class="section-sub">Search "Lawtte" on any platform. For pickup, just select "self pickup" at checkout.</p>
+      <p class="section-sub">Search "the_baRRista" on any platform. For pickup, just select "self pickup" at checkout.</p>
 
       <div class="order-grid">
         <a href="#" class="order-card reveal" aria-label="Order on GrabFood">
           <div class="order-card-icon oc-grab">GF</div>
           <div class="order-card-name">GrabFood</div>
-          <div class="order-card-desc">Search "Lawtte" and order for delivery or pickup.</div>
+          <div class="order-card-desc">Search "the_baRRista" and order for delivery or pickup.</div>
         </a>
         <a href="#" class="order-card reveal d1" aria-label="Order on Shopee Food">
           <div class="order-card-icon oc-shopee">SF</div>
@@ -830,14 +736,9 @@
       <div class="order-pickup-banner reveal">
         <div class="order-pickup-icon">⚡</div>
         <div class="order-pickup-text">
-          <strong>Pickup in 3 minutes — no rider needed <span class="order-pickup-badge">Fastest option</span></strong>
+          <strong>Pickup — no rider needed <span class="order-pickup-badge">Fastest option</span></strong>
           <span>Select "self pickup" on Grab, Shopee Food, or FoodPanda. Walk in, grab your coffee, walk out.</span>
         </div>
-      </div>
-
-      <div class="order-status reveal" id="orderStatus">
-        <span class="order-status-dot" id="statusDot"></span>
-        <span class="order-status-text" id="statusText"></span>
       </div>
     </div>
   </section>
@@ -846,19 +747,19 @@
   <section class="hours" id="hours">
     <div class="container">
       <p class="eyebrow">Hours</p>
-      <h2 class="section-title">Open late. Every single night.</h2>
-      <p class="section-sub">No early closings. No "sorry we're closed" at 10.</p>
+      <h2 class="section-title">Open late. Friday to Sunday.</h2>
+      <p class="section-sub">Closed Monday–Thursday for now.</p>
 
       <div class="hours-grid">
         <div class="hours-card reveal">
-          <div class="hours-day">Sunday – Thursday</div>
-          <div class="hours-time">8 – 11:30 PM</div>
-          <div class="hours-note">3.5 hours of late-night service</div>
+          <div class="hours-day">Friday & Saturday</div>
+          <div class="hours-time">8 PM – 12 AM</div>
+          <div class="hours-note">Open until midnight</div>
         </div>
         <div class="hours-card reveal d1">
-          <div class="hours-day">Friday & Saturday</div>
-          <div class="hours-time">8 PM – 12:30 AM</div>
-          <div class="hours-note">Extended for the weekend warriors</div>
+          <div class="hours-day">Sunday</div>
+          <div class="hours-time">8 – 11:30 PM</div>
+          <div class="hours-note">3.5 hours of late-night service</div>
         </div>
       </div>
 
@@ -909,15 +810,15 @@
   <footer>
     <div class="container footer-inner">
       <div>
-        <div class="footer-brand">Lawtte<span>.</span></div>
-        <div class="footer-tagline" style="font-style:italic">right judgement cup of beans</div>
+        <div class="footer-brand">the_baRRista<span>.</span></div>
+        <div class="footer-tagline" style="font-style:italic">taste beyond reasonable doubt</div>
       </div>
       <div class="footer-info">
         Home-based stall · Section U10 & surrounding areas<br>
         Available on Grab · Shopee Food · FoodPanda
       </div>
       <div class="footer-hours">
-        Open <strong>8PM nightly</strong><br>
+        Open <strong>8PM, Fri–Sun</strong><br>
         Pickup until last order
       </div>
     </div>
@@ -1026,57 +927,6 @@
       });
     }, { threshold: .12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // ─── OPERATING STATUS ───
-    (function() {
-      const dot = document.getElementById('statusDot');
-      const text = document.getElementById('statusText');
-      const navDot = document.getElementById('navStatusDot');
-      const navLabel = document.getElementById('navStatusLabel');
-
-      const now = new Date();
-      // Use Malaysian time (UTC+8) regardless of user locale
-      const myTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kuala_Lumpur' }));
-      const day = myTime.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
-      const hh = myTime.getHours();
-      const mm = myTime.getMinutes();
-      const totalMinutes = hh * 60 + mm;
-
-      let isOpen = false;
-
-      if (day === 0 || day === 5 || day === 6) {
-        // Sunday, Friday, Saturday: 8PM (20:00) – 12:30AM (00:30 next day)
-        if (hh >= 20) {
-          isOpen = true; // 8PM – midnight
-        } else if (hh < 1) {
-          // 12AM – 12:30AM (only after Friday or Saturday)
-          if (day === 6 || day === 0) {
-            // Saturday 12AM–12:30AM (still open from Fri night)
-            // Sunday 12AM–12:30AM (still open from Sat night)
-            if (totalMinutes <= 30) isOpen = true;
-          }
-        }
-      } else {
-        // Monday–Thursday: 8PM (20:00) – 11:30PM (23:30)
-        if (hh >= 20 && (hh < 23 || (hh === 23 && mm <= 30))) {
-          isOpen = true;
-        }
-      }
-
-      const statusClass = isOpen ? 'open' : 'closed';
-
-      dot.className = 'order-status-dot ' + statusClass;
-      navDot.className = 'nav-status-dot ' + statusClass;
-      navLabel.className = 'nav-status-label ' + statusClass;
-
-      if (isOpen) {
-        text.innerHTML = 'Burning the midnight oil? Let us handle the fuel. <a href="#order">Fuel your night.</a>.';
-        navLabel.textContent = 'Open now';
-      } else {
-        text.innerHTML = 'We\'re currently closed, but you can <a href="#order">pre-order for tomorrow</a>!';
-        navLabel.textContent = 'Closed';
-      }
-    })();
   </script>
 </body>
 </html>
