@@ -837,6 +837,30 @@
   </div>
 
   <script>
+    // ─── SYRUP IMAGE LIGHTBOX ───
+    (function() {
+      const trigger = document.getElementById('syrupLightboxTrigger');
+      const lightbox = document.getElementById('syrupLightbox');
+      const closeBtn = document.getElementById('syrupLightboxClose');
+
+      function open(e) {
+        e.preventDefault();
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+
+      if (trigger) trigger.addEventListener('click', open);
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      if (lightbox) lightbox.addEventListener('click', function(e) { if (e.target === lightbox) close(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
+
+  <script>
     // ─── DITHERING SHADER CANVAS ───
     (function() {
       const canvas = document.getElementById('dither-canvas');
@@ -939,28 +963,6 @@
       });
     }, { threshold: .12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // ─── SYRUP IMAGE LIGHTBOX ───
-    (function() {
-      const trigger = document.getElementById('syrupLightboxTrigger');
-      const lightbox = document.getElementById('syrupLightbox');
-      const closeBtn = document.getElementById('syrupLightboxClose');
-
-      function open(e) {
-        e.preventDefault();
-        lightbox.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      }
-      function close() {
-        lightbox.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-
-      if (trigger) trigger.addEventListener('click', open);
-      if (closeBtn) closeBtn.addEventListener('click', close);
-      if (lightbox) lightbox.addEventListener('click', function(e) { if (e.target === lightbox) close(); });
-      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
-    })();
   </script>
 </body>
 </html>
